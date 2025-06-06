@@ -1,10 +1,10 @@
 package ca.uwaterloo.crysp.privacyguard.Application.Database;
 
 public class AppSummary {
-    private String packageName;
-    private String appName;
-    private int totalLeaks;
-    private int ignore;
+    private final String packageName;
+    private final String appName;
+    private final int totalLeaks;
+    private final int ignore;
 
     public AppSummary(String packageName, String appName, int totalLeaks, int ignore) {
         this.packageName = packageName;

@@ -64,9 +64,9 @@ public class FileSystemStore implements FragmentsStore {
     
     private static final String[] NONE = new String[0];
     
-    private SortedMap<String, List<String>> _types = new TreeMap<String, List<String>>();
+    private final SortedMap<String, List<String>> _types = new TreeMap<String, List<String>>();
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of FileSystemStore */
     public FileSystemStore(File dir, String session) throws StoreException {
@@ -156,7 +156,7 @@ public class FileSystemStore implements FragmentsStore {
             list = new ArrayList<String>();
             _types.put(type, list);
         }
-        if (list.indexOf(key)>-1) return -1;
+        if (list.contains(key)) return -1;
         list.add(key);
         File f = new File(_dir, key);
         FileWriter fw = null;

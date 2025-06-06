@@ -45,9 +45,9 @@ import java.util.regex.PatternSyntaxException;
 
 public class ManualEdit extends ProxyPlugin {
     
-    private static String INCLUDE = ".*";
-    private static String EXCLUDE = ".*\\.(gif|jpg|png|css|js|ico|swf|axd.*)$";
-    private static String CONTENT = "text/.*";
+    private static final String INCLUDE = ".*";
+    private static final String EXCLUDE = ".*\\.(gif|jpg|png|css|js|ico|swf|axd.*)$";
+    private static final String CONTENT = "text/.*";
     
     private String _includeRegex = "";
     private String _excludeRegex = "";
@@ -59,7 +59,7 @@ public class ManualEdit extends ProxyPlugin {
     
     private ManualEditUI _ui = null;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of ManualEdit */
     public ManualEdit() {
@@ -98,7 +98,7 @@ public class ManualEdit extends ProxyPlugin {
     }
     
     public String getPluginName() {
-        return new String("Manual Edit");
+        return "Manual Edit";
     }
     
     public void setUI(ManualEditUI ui) {
@@ -187,7 +187,7 @@ public class ManualEdit extends ProxyPlugin {
     
     private class Plugin implements HTTPClient {
         
-        private HTTPClient _in;
+        private final HTTPClient _in;
         
         private Pattern _exclude;
         private Pattern _include;

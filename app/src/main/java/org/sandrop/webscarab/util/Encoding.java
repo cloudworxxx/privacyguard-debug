@@ -52,9 +52,9 @@ public final class Encoding {
     /** Avoids instantiation */
     private Encoding() {}
     /** Map for base64 encoding */
-    private static byte[] _base64en;
+    private static final byte[] _base64en;
     /** Map for base64 decoding */
-    private static byte[] _base64de;
+    private static final byte[] _base64de;
     /** invalid char on base64 decoding */
     private static final byte B64INV = (byte) 0x80;
     
@@ -98,7 +98,7 @@ public final class Encoding {
         if ( null == code )
             return null;
         if ( 0 == code.length )
-            return new String();
+            return "";
         int len = code.length;
         // remainder of the encoding process
         int rem = len % 3;

@@ -26,8 +26,8 @@ import ca.uwaterloo.crysp.privacyguard.Application.Logger;
  * Created by y59song on 05/06/14.
  */
 public class MyNetworkHostNameResolver {
-  private MyVpnService vpnService;
-  private Context mContext;
+  private final MyVpnService vpnService;
+  private final Context mContext;
   private String mHostName;
   private boolean mListenerStarted = false;
   private Map<Integer, SiteData> siteData;
@@ -36,8 +36,8 @@ public class MyNetworkHostNameResolver {
   private HostNameResolver hostNameResolver;
 
   public static String DEFAULT_SITE_NAME = "privacyguard.untrusted";
-  private static String TAG = MyNetworkHostNameResolver.class.getSimpleName();
-  private static boolean LOGD = false;
+  private static final String TAG = MyNetworkHostNameResolver.class.getSimpleName();
+  private static final boolean LOGD = false;
 
   private native String getOriginalDest(Socket socket);
 

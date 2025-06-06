@@ -46,7 +46,7 @@ public class ChunkedInputStream extends FilterInputStream {
     int start = 0;
     int size = 0;
     String[][] _trailer = null;
-    private Logger _logger = Logger.getLogger(this.getClass().getName());
+    private final Logger _logger = Logger.getLogger(this.getClass().getName());
     
     public ChunkedInputStream(InputStream in) throws IOException {
         super(in);
@@ -133,7 +133,7 @@ public class ChunkedInputStream extends FilterInputStream {
     }
     
     private String readLine() throws IOException {
-        String line = new String();
+        String line = "";
         int i;
         byte[] b={(byte)0x00};
         i = in.read();
@@ -165,7 +165,7 @@ public class ChunkedInputStream extends FilterInputStream {
         if (trailer.size()>0) {
             _trailer = new String[trailer.size()][2];
             for (int i=0; i<trailer.size(); i++) {
-                String[] pair = (String[]) trailer.get(i);
+                String[] pair = trailer.get(i);
                 _trailer[i][0] = pair[0];
                 _trailer[i][1] = pair[1];
             }

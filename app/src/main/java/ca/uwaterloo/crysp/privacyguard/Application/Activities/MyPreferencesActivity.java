@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +29,7 @@ import java.io.FileWriter;
  */
 
 public class MyPreferencesActivity extends AppCompatActivity {
-    private static String TAG = "MyPreferencesActivity";
+    private static final String TAG = "MyPreferencesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MyPreferencesActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.preferences_fragment, null);
 
-            LinearLayout updateFilterKeywords = (LinearLayout) view.findViewById(R.id.update_filter_keywords);
+            LinearLayout updateFilterKeywords = view.findViewById(R.id.update_filter_keywords);
 
             final MyPreferencesActivity activity = (MyPreferencesActivity) getActivity();
 

@@ -1,5 +1,6 @@
 package ca.uwaterloo.crysp.privacyguard.Plugin;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import ca.uwaterloo.crysp.privacyguard.Application.Logger;
@@ -63,6 +64,7 @@ public class KeywordDetection implements IPlugin {
         return response;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     public void setContext(Context context) {
         synchronized(keywords) {

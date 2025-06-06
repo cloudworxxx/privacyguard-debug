@@ -36,6 +36,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,33 +56,29 @@ public class MultiPartContent {
     
     /** Creates a new instance of MultiPartContent */
     public MultiPartContent(String contentType, byte[] content) {
-        try {
-            _parts = new ArrayList<Message>();
-            if (contentType != null && contentType.trim().startsWith("multipart/form-data")) {
-                int pos = contentType.indexOf("boundary=");
-                int semi = contentType.indexOf(";", pos);
-                if (semi < 0) semi = contentType.length();
-                _boundary = ("--" + contentType.substring(pos+9,semi).trim()).getBytes("UTF-8");
-            } else {
-                _boundary = null;
-            }
-            if (_boundary != null) {
-                int start = findBytes(content, _boundary, 0) + _boundary.length + CRLF.length;
-                int end = findBytes(content, _boundary, start);
-                while (end < content.length) {
-                    Message message = new Message();
-                    try {
-                        message.read(new ByteArrayInputStream(content, start, end-start-CRLF.length));
-                    } catch (IOException ioe) {
-                        System.err.println("IOException on a ByteArrayInputStream should never happen! " + ioe);
-                    }
-                    _parts.add(message);
-                    start = end + _boundary.length + CRLF.length;
-                    end = findBytes(content, _boundary, start);
+        _parts = new ArrayList<Message>();
+        if (contentType != null && contentType.trim().startsWith("multipart/form-data")) {
+            int pos = contentType.indexOf("boundary=");
+            int semi = contentType.indexOf(";", pos);
+            if (semi < 0) semi = contentType.length();
+            _boundary = ("--" + contentType.substring(pos+9,semi).trim()).getBytes(StandardCharsets.UTF_8);
+        } else {
+            _boundary = null;
+        }
+        if (_boundary != null) {
+            int start = findBytes(content, _boundary, 0) + _boundary.length + CRLF.length;
+            int end = findBytes(content, _boundary, start);
+            while (end < content.length) {
+                Message message = new Message();
+                try {
+                    message.read(new ByteArrayInputStream(content, start, end-start-CRLF.length));
+                } catch (IOException ioe) {
+                    System.err.println("IOException on a ByteArrayInputStream should never happen! " + ioe);
                 }
+                _parts.add(message);
+                start = end + _boundary.length + CRLF.length;
+                end = findBytes(content, _boundary, start);
             }
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("UTF-8 not supported?! " + e);
         }
     }
     
@@ -90,12 +87,7 @@ public class MultiPartContent {
     }
     
     public String getBoundary() {
-        try {
-            return new String(_boundary, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("UTF-8 not supported?! " + e);
-            return null;
-        }
+        return new String(_boundary, StandardCharsets.UTF_8);
     }
     
     public int size() {
@@ -103,15 +95,15 @@ public class MultiPartContent {
     }
     
     public Message set(int index, Message part) {
-        return (Message) _parts.set(index, part);
+        return _parts.set(index, part);
     }
     
     public Message get(int index) {
-        return (Message) _parts.get(index);
+        return _parts.get(index);
     }
     
     public Message remove(int index) {
-        return (Message) _parts.remove(index);
+        return _parts.remove(index);
     }
     
     public void add(int index, Message part) {
@@ -137,7 +129,7 @@ public class MultiPartContent {
     }
     
     public String getPartName(int index) {
-        Message part = (Message) _parts.get(index);
+        Message part = _parts.get(index);
         String disposition = part.getHeader("Content-Disposition");
         int nameindex = disposition.indexOf("name=");
         int semi = disposition.indexOf(";", nameindex);
@@ -156,7 +148,7 @@ public class MultiPartContent {
             baos.write(CRLF);
             Iterator<Message> it = _parts.iterator();
             while (it.hasNext()) {
-                Message message = (Message) it.next();
+                Message message = it.next();
                 message.write(baos);
                 baos.write(CRLF);
                 baos.write(_boundary);

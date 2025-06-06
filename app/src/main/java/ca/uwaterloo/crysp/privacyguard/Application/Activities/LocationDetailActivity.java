@@ -1,9 +1,12 @@
 package ca.uwaterloo.crysp.privacyguard.Application.Activities;
 
+import android.Manifest;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresPermission;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,13 +60,13 @@ public class LocationDetailActivity extends AppCompatActivity implements OnMapRe
         category = intent.getStringExtra(PrivacyGuard.EXTRA_CATEGORY);
         ignore = intent.getIntExtra(PrivacyGuard.EXTRA_IGNORE, 0);
 
-        TextView title = (TextView) findViewById(R.id.detail_title);
+        TextView title = findViewById(R.id.detail_title);
         title.setText(category);
-        TextView subtitle = (TextView) findViewById(R.id.detail_subtitle);
+        TextView subtitle = findViewById(R.id.detail_subtitle);
         subtitle.setText("[" + appName + "]");
 
 
-        notificationSwitch = (Switch) findViewById(R.id.detail_switch);
+        notificationSwitch = findViewById(R.id.detail_switch);
         notificationSwitch.setChecked(ignore == 1);
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -82,7 +85,7 @@ public class LocationDetailActivity extends AppCompatActivity implements OnMapRe
         });
 
 
-        list = (ListView) findViewById(R.id.location_list);
+        list = findViewById(R.id.location_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -133,6 +136,7 @@ public class LocationDetailActivity extends AppCompatActivity implements OnMapRe
         }
     }
 
+    @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onMapReady(GoogleMap map) {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);

@@ -46,7 +46,7 @@ public class HttpUrl implements Comparable {
     private String _fragment = null;
     private String _query = null;
     
-    private int _hashcode;
+    private final int _hashcode;
     
     /**
      * creates an HttpUrl by parsing the supplied string
@@ -219,11 +219,10 @@ public class HttpUrl implements Comparable {
      * @return the string representation of the URL, excluding any fragments or query
      */
     public String getSHPP() {
-        StringBuffer buff = new StringBuffer();
-        buff.append(_scheme).append("://");
-        buff.append(_host).append(":").append(_port);
-        buff.append(_path);
-        return buff.toString();
+        String buff = _scheme + "://" +
+                _host + ":" + _port +
+                _path;
+        return buff;
     }
     
     /**
@@ -260,7 +259,7 @@ public class HttpUrl implements Comparable {
                 return null;
             }
         } catch (MalformedURLException mue) {
-            System.err.println("Malformed URL calculating parent path of " + toString());
+            System.err.println("Malformed URL calculating parent path of " + this);
             return null;
         }
     }

@@ -20,8 +20,8 @@ public class MessageOutputStream extends OutputStream implements java.io.Closeab
     private boolean deleteOnClean = true;
     private File file;
     
-    private static boolean LOGD = false;
-    private static String TAG = MessageOutputStream.class.getName();
+    private static final boolean LOGD = false;
+    private static final String TAG = MessageOutputStream.class.getName();
     
     public static int LARGE_CONTENT_SIZE = 1024 * 1024;
     private static long SUM_MEMORY_CONTENT_ALL = 0;

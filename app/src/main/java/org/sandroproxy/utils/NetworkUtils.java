@@ -44,8 +44,8 @@ import android.util.Log;
 
 public class NetworkUtils {
     
-    private static String TAG = NetworkUtils.class.getName();
-    private static Logger _logger = Logger.getLogger(NetworkUtils.class.getName());
+    private static final String TAG = NetworkUtils.class.getName();
+    private static final Logger _logger = Logger.getLogger(NetworkUtils.class.getName());
     
     public static List<String> getLocalIpAddress() {
         List<String> networkAdapterIps = new ArrayList<String>();

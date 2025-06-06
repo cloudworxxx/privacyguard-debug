@@ -7,7 +7,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorAccent">@color/gold</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>

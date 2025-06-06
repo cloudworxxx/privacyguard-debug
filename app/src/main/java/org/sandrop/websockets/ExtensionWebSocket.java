@@ -90,15 +90,15 @@ public class ExtensionWebSocket {
      * List of observers where each element is informed on all channel's
      * messages.
      */
-    private Map<String, WebSocketObserver> allChannelObservers;
+    private final Map<String, WebSocketObserver> allChannelObservers;
 
     /**
      * Contains all proxies with their corresponding handshake message.
      */
-    private Map<Long, WebSocketProxy> wsProxies;
+    private final Map<Long, WebSocketProxy> wsProxies;
 
 
-    private WebSocketStorage storageObserver;
+    private final WebSocketStorage storageObserver;
 
     
     public ExtensionWebSocket(SqlLiteStore store) {
@@ -158,7 +158,6 @@ public class ExtensionWebSocket {
      * Add an open channel to this extension after
      * HTTP handshake has been completed.
      * 
-     * @param handshakeMessage HTTP-based handshake.
      * @param localSocket Current connection channel from the browser to ZAP.
      * @param remoteSocket Current connection channel from ZAP to the server.
      * @param remoteReader Current {@link InputStream} of remote connection.
@@ -221,7 +220,6 @@ public class ExtensionWebSocket {
                 }
             }
             logger.info("Adding WebSockets channel failed due to: '" + e.getClass() + "' " + e.getMessage());
-            return;
         }
     }
 

@@ -41,12 +41,12 @@ import org.apache.bsf.BSFException;
 
 public class Hook {
     
-    private String _name;
-    private String _description;
-    private List<Script> _scripts = new ArrayList<Script>();
+    private final String _name;
+    private final String _description;
+    private final List<Script> _scripts = new ArrayList<Script>();
     protected BSFManager _bsfManager = null;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of Hook */
     public Hook(String name, String description) {

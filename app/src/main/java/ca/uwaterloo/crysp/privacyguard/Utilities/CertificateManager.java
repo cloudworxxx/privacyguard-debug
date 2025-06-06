@@ -33,7 +33,7 @@ import java.security.cert.CertificateFactory;
  * Created by Near on 15-01-06.
  */
 public class CertificateManager {
-    private static String TAG = "CertificateManager";
+    private static final String TAG = "CertificateManager";
     static SSLSocketFactoryFactory mFactoryFactory;
 
     // generate CA certificate but return a ssl socket factory factory which use this certificate

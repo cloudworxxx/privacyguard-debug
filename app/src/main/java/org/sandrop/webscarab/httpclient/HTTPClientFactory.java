@@ -66,7 +66,7 @@ public class HTTPClientFactory {
     
     private static HTTPClientFactory _instance;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     private String _httpProxy = "";
     private int _httpProxyPort = 80;
@@ -83,8 +83,8 @@ public class HTTPClientFactory {
     
     private Authenticator _authenticator = null;
     
-    private List _clientList = new ArrayList();
-    private List _availableClients = new ArrayList();
+    private final List _clientList = new ArrayList();
+    private final List _availableClients = new ArrayList();
     
     /** Creates a new instance of HttpClientFactory */
     protected HTTPClientFactory(Context context) {
@@ -114,7 +114,7 @@ public class HTTPClientFactory {
             _logger.info("certificate file name:" + filename);
             String keyPassword =  pref.getString("preference_client_cert_password", "");
             if (keyPassword.length() > 0){
-                _logger.info("certificate password:" + keyPassword.substring(0,1) + "... length " + keyPassword.length());
+                _logger.info("certificate password:" + keyPassword.charAt(0) + "... length " + keyPassword.length());
             }else{
                 _logger.info("certificate password empty!!");
             }

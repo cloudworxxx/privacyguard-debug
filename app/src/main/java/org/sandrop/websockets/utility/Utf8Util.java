@@ -23,6 +23,7 @@
 package org.sandrop.websockets.utility;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Encode or decode from byte[] to Utf8 and vice versa.
@@ -32,7 +33,7 @@ public abstract class Utf8Util {
 	/**
 	 * Used for en- & decoding from bytes to String and vice versa.
 	 */
-	protected static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+	protected static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
 
 	/**
 	 * Helper method to encode payload into UTF-8 string.

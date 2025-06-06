@@ -30,7 +30,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import ca.uwaterloo.crysp.privacyguard.Application.ActionReceiver;
 import ca.uwaterloo.crysp.privacyguard.Application.Activities.AppSummaryActivity;
@@ -74,7 +74,7 @@ public class MyVpnService extends VpnService implements Runnable {
     private static final boolean DEBUG = true;
     private static boolean running = false;
     private static boolean started = false;
-    private static HashMap<String, Integer[]> notificationMap = new HashMap<String, Integer[]>();
+    private static final HashMap<String, Integer[]> notificationMap = new HashMap<String, Integer[]>();
 
     //The virtual network interface, get and return packets to it
     private ParcelFileDescriptor mInterface;
@@ -90,7 +90,7 @@ public class MyVpnService extends VpnService implements Runnable {
     private LocalServer localServer;
 
     // Plugin
-    private Class pluginClass[] = {
+    private final Class[] pluginClass = {
             LocationDetection.class,
             DeviceDetection.class,
             ContactDetection.class,
@@ -102,7 +102,7 @@ public class MyVpnService extends VpnService implements Runnable {
     private FilterThread filterThread;
 
     // Other
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public static boolean isRunning() {
         /** http://stackoverflow.com/questions/600207/how-to-check-if-a-service-is-running-on-android */
@@ -371,7 +371,7 @@ public class MyVpnService extends VpnService implements Runnable {
             if (PrivacyGuard.asynchronous) filterThread.interrupt();
             mInterface.close();
         } catch (IOException e) {
-            Logger.e(TAG, e.toString() + "\n" + Arrays.toString(e.getStackTrace()));
+            Logger.e(TAG, e + "\n" + Arrays.toString(e.getStackTrace()));
         }
         mInterface = null;
     }

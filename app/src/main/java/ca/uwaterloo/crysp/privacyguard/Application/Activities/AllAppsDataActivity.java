@@ -1,7 +1,7 @@
 package ca.uwaterloo.crysp.privacyguard.Application.Activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.MenuItem;
 
 import ca.uwaterloo.crysp.privacyguard.Application.Database.DatabaseHandler;
@@ -38,52 +38,52 @@ public class AllAppsDataActivity extends DataActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.info:
-                AlertDialog alertDialog;
+        int id = item.getItemId();
 
-                switch (tabLayout.getSelectedTabPosition()) {
-                    case 0:
-                        alertDialog = new AlertDialog.Builder(this)
-                                .setTitle(R.string.leak_report_title)
-                                .setIcon(R.drawable.info_outline)
-                                .setMessage(R.string.report_message_all_apps)
-                                .setPositiveButton(R.string.dialog_accept, null)
-                                .create();
-                        alertDialog.show();
-                        return true;
+        if (id == R.id.info) {
+            AlertDialog alertDialog;
+            int selectedTab = tabLayout.getSelectedTabPosition();
 
-                    case 1:
-                        alertDialog = new AlertDialog.Builder(this)
-                                .setTitle(R.string.leak_summary_title)
-                                .setIcon(R.drawable.info_outline)
-                                .setMessage(R.string.summary_message_all_apps)
-                                .setPositiveButton(R.string.dialog_accept, null)
-                                .create();
-                        alertDialog.show();
-                        return true;
-
-                    case 2:
-                        alertDialog = new AlertDialog.Builder(this)
-                                .setTitle(R.string.leak_query_title)
-                                .setIcon(R.drawable.info_outline)
-                                .setMessage(R.string.query_message_all_apps)
-                                .setPositiveButton(R.string.dialog_accept, null)
-                                .create();
-                        alertDialog.show();
-                        return true;
-
-                    case 3:
-                        alertDialog = new AlertDialog.Builder(this)
-                                .setTitle(R.string.traffic_title)
-                                .setIcon(R.drawable.info_outline)
-                                .setMessage(R.string.traffic_message_all_apps)
-                                .setPositiveButton(R.string.dialog_accept, null)
-                                .create();
-                        alertDialog.show();
-                        return true;
-
-                }
+            if (selectedTab == 0) {
+                alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.leak_report_title)
+                        .setIcon(R.drawable.info_outline)
+                        .setMessage(R.string.report_message_all_apps)
+                        .setPositiveButton(R.string.dialog_accept, null)
+                        .create();
+                alertDialog.show();
+                return true;
+            }
+            else if (selectedTab == 1) {
+                alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.leak_summary_title)
+                        .setIcon(R.drawable.info_outline)
+                        .setMessage(R.string.summary_message_all_apps)
+                        .setPositiveButton(R.string.dialog_accept, null)
+                        .create();
+                alertDialog.show();
+                return true;
+            }
+            else if (selectedTab == 2) {
+                alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.leak_query_title)
+                        .setIcon(R.drawable.info_outline)
+                        .setMessage(R.string.query_message_all_apps)
+                        .setPositiveButton(R.string.dialog_accept, null)
+                        .create();
+                alertDialog.show();
+                return true;
+            }
+            else if (selectedTab == 3) {
+                alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.traffic_title)
+                        .setIcon(R.drawable.info_outline)
+                        .setMessage(R.string.traffic_message_all_apps)
+                        .setPositiveButton(R.string.dialog_accept, null)
+                        .create();
+                alertDialog.show();
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);

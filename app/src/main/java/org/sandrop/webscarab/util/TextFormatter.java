@@ -55,7 +55,7 @@ public class TextFormatter extends Formatter {
         buff.append(Thread.currentThread().getName());
         String className = record.getSourceClassName();
         if (className.indexOf(".")>-1) { 
-            className = className.substring(className.lastIndexOf(".")+1,className.length());
+            className = className.substring(className.lastIndexOf(".")+1);
         }
         buff.append("(").append(className).append(".");
         buff.append(record.getSourceMethodName()).append("): ");

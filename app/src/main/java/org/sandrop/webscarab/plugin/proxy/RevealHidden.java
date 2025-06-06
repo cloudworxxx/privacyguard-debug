@@ -63,7 +63,7 @@ public class RevealHidden extends ProxyPlugin {
     }
     
     public String getPluginName() {
-        return new String("Reveal Hidden");
+        return "Reveal Hidden";
     }
     
     /*
@@ -84,7 +84,7 @@ public class RevealHidden extends ProxyPlugin {
     
     private class Plugin implements HTTPClient {
     
-        private HTTPClient _in;
+        private final HTTPClient _in;
         
         public Plugin(HTTPClient in) {
             _in = in;
@@ -139,15 +139,14 @@ public class RevealHidden extends ProxyPlugin {
         }
 
         private String constructReplacement(final String name, final String input) {
-            final StringBuffer result = new StringBuffer();
-            result.append("<div style=\"background: pink; border: red 1px solid; padding: 2px; margin:4px; text-align: left;\">");
-            result.append("<p style=\"color: red; text-align: left; margin-top: 0px; font-size: xx-small;\">Hidden Input Field</p>");
-            result.append("<p style=\"text-align: center; color: black; margin: 0px; font-size: normal;\">");
-            result.append("[").append(name).append("]").append("&nbsp;").append(input);
-            result.append("</p>");
-            result.append("<p style=\"color: red; text-align: right; margin-bottom: 0px; font-size: xx-small;\">Revealed by SandroProxy</p>");
-            result.append("</div>");
-            return result.toString();
+            String result = "<div style=\"background: pink; border: red 1px solid; padding: 2px; margin:4px; text-align: left;\">" +
+                    "<p style=\"color: red; text-align: left; margin-top: 0px; font-size: xx-small;\">Hidden Input Field</p>" +
+                    "<p style=\"text-align: center; color: black; margin: 0px; font-size: normal;\">" +
+                    "[" + name + "]" + "&nbsp;" + input +
+                    "</p>" +
+                    "<p style=\"color: red; text-align: right; margin-bottom: 0px; font-size: xx-small;\">Revealed by SandroProxy</p>" +
+                    "</div>";
+            return result;
         }
 
     }

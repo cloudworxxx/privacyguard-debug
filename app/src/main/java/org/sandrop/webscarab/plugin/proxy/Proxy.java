@@ -89,8 +89,8 @@ public class Proxy implements Plugin {
     private boolean _running = false;
 
     private Framework _framework = null;
-    private ITransparentProxyResolver _transparentProxyResolver;
-    private IClientResolver _clientResolver;
+    private final ITransparentProxyResolver _transparentProxyResolver;
+    private final IClientResolver _clientResolver;
     private boolean _captureData = false;
     private boolean _useFakeCerts = false;
     private boolean _storeSslAsPcap = false;
@@ -101,32 +101,32 @@ public class Proxy implements Plugin {
 
     private ProxyUI _ui = null;
 
-    private ArrayList<ProxyPlugin> _plugins = new ArrayList<ProxyPlugin>();
-    private TreeMap<ListenerSpec, Listener> _listeners = new TreeMap<ListenerSpec, Listener>();
+    private final ArrayList<ProxyPlugin> _plugins = new ArrayList<ProxyPlugin>();
+    private final TreeMap<ListenerSpec, Listener> _listeners = new TreeMap<ListenerSpec, Listener>();
 
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
 
     private String _status = "Stopped";
-    private int _pending = 0;
+    private final int _pending = 0;
 
-    private static HashMap<String, SSLSocketFactory> _factoryMap = new HashMap<String, SSLSocketFactory>();
+    private static final HashMap<String, SSLSocketFactory> _factoryMap = new HashMap<String, SSLSocketFactory>();
 
-    private static char[] _keystorepass = "password".toCharArray();
-    private static char[] _keypassword = "password".toCharArray();
+    private static final char[] _keystorepass = "password".toCharArray();
+    private static final char[] _keypassword = "password".toCharArray();
     private SSLSocketFactoryFactory _certGenerator = null;
-    private static String _certDir = "./certs/";
+    private static final String _certDir = "./certs/";
 
-    private Proxy.ConnectionHook _allowConnection = new ConnectionHook(
+    private final Proxy.ConnectionHook _allowConnection = new ConnectionHook(
             "Allow connection",
             "Called when a new connection is received from a browser\n"
                     + "use connection.getAddress() and connection.closeConnection() to decide and react");
 
-    private Proxy.ConnectionHook _interceptRequest = new ConnectionHook(
+    private final Proxy.ConnectionHook _interceptRequest = new ConnectionHook(
             "Intercept request",
             "Called when a new request has been submitted by the browser\n"
                     + "use connection.getRequest() and connection.setRequest(request) to perform changes");
 
-    private Proxy.ConnectionHook _interceptResponse = new ConnectionHook(
+    private final Proxy.ConnectionHook _interceptResponse = new ConnectionHook(
             "Intercept response",
             "Called when the request has been submitted to the server, and the response "
                     + "has been recieved.\n"
@@ -137,9 +137,7 @@ public class Proxy implements Plugin {
     /**
      * Creates a Proxy Object with a reference to the Framework. Creates (but
      * does not start) the configured Listeners.
-     * 
-     * @param model
-     *            The Model to submit requests and responses to
+     *
      */
     public Proxy(Framework framework, ITransparentProxyResolver transparentProxyResolver, IClientResolver clientResolver) {
         _logger.setLevel(Level.FINEST);
@@ -292,7 +290,7 @@ public class Proxy implements Plugin {
      * 
      */
     public String getPluginName() {
-        return new String("Proxy");
+        return "Proxy";
     }
 
     /**
@@ -304,7 +302,7 @@ public class Proxy implements Plugin {
         if (_listeners.size() == 0) {
             return new ListenerSpec[0];
         }
-        return (ListenerSpec[]) _listeners.keySet()
+        return _listeners.keySet()
                 .toArray(new ListenerSpec[0]);
     }
 
@@ -339,7 +337,7 @@ public class Proxy implements Plugin {
         Preferences.setPreference("Proxy.listener." + key + ".base", spec
                 .getBase() == null ? "" : spec.getBase().toString());
         Preferences.setPreference("Proxy.listener." + key + ".primary", spec
-                .isPrimaryProxy() == true ? "yes" : "no");
+                .isPrimaryProxy() ? "yes" : "no");
 
         String value = null;
         Iterator<ListenerSpec> i = _listeners.keySet().iterator();
@@ -376,8 +374,6 @@ public class Proxy implements Plugin {
     /**
      * Used to stop the referenced listener
      * 
-     * @param key
-     *            the Listener to stop
      * @return true if the proxy was successfully stopped, false otherwise
      */
     public boolean removeListener(ListenerSpec spec) {
@@ -505,7 +501,7 @@ public class Proxy implements Plugin {
             // If it has been loaded already, use it
         	String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort: hostData.name;
             if (_factoryMap.containsKey(certEntry))
-                return (SSLSocketFactory) _factoryMap.get(certEntry);
+                return _factoryMap.get(certEntry);
             SSLSocketFactory factory;
             // Check if there is a specific keypair to use
             File p12 = new File(_certDir + certEntry + ".p12");
@@ -523,7 +519,7 @@ public class Proxy implements Plugin {
             // Has the default keypair been loaded already?
             if (_factoryMap.containsKey(null)) {
                 _logger.info("Using default SSL keystore for " + hostData.name);
-                return (SSLSocketFactory) _factoryMap.get(null);
+                return _factoryMap.get(null);
             }
             // Check for a user-provided "default keypair"
             p12 = new File(_certDir + "server.p12");

@@ -22,7 +22,7 @@ public class MainListViewAdapter extends BaseAdapter{
     private static final String TAG = MainListViewAdapter.class.getSimpleName();
     private List<AppSummary> list;
     private final Context context;
-    private PackageManager pm;
+    private final PackageManager pm;
 
     public MainListViewAdapter(Context context, List<AppSummary> list) {
         super();
@@ -57,10 +57,10 @@ public class MainListViewAdapter extends BaseAdapter{
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.listview_main, null);
             holder = new ViewHolder();
-            holder.appIcon = (ImageView)convertView.findViewById(R.id.main_appIcon);
-            holder.appName = (TextView)convertView.findViewById(R.id.main_appName);
-            holder.leakCount = (TextView)convertView.findViewById(R.id.main_leakCount);
-            holder.leakString = (TextView)convertView.findViewById(R.id.main_appLeak);
+            holder.appIcon = convertView.findViewById(R.id.main_appIcon);
+            holder.appName = convertView.findViewById(R.id.main_appName);
+            holder.leakCount = convertView.findViewById(R.id.main_leakCount);
+            holder.leakString = convertView.findViewById(R.id.main_appLeak);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();

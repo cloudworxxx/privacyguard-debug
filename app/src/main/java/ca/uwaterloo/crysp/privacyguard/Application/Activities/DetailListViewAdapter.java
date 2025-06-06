@@ -55,10 +55,10 @@ public class DetailListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.listview_detail, null);
             holder = new ViewHolder();
 
-            holder.type = (TextView) convertView.findViewById(R.id.detail_type);
-            holder.time = (TextView) convertView.findViewById(R.id.detail_time);
+            holder.type = convertView.findViewById(R.id.detail_type);
+            holder.time = convertView.findViewById(R.id.detail_time);
             //holder.content = (TextView) convertView.findViewById(R.id.detail_content);
-            holder.destination = (TextView) convertView.findViewById(R.id.detail_destination);
+            holder.destination = convertView.findViewById(R.id.detail_destination);
 
             convertView.setTag(holder);
         } else {

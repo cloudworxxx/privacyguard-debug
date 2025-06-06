@@ -34,10 +34,10 @@ package org.sandrop.webscarab.plugin;
 
 public class BasicCredential {
     
-    private String _host;
-    private String _realm;
-    private String _username;
-    private String _password;
+    private final String _host;
+    private final String _realm;
+    private final String _username;
+    private final String _password;
     
     /**
      * Creates a new instance of BasicCredential 

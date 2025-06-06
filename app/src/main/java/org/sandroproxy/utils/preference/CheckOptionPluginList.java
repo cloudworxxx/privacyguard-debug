@@ -14,11 +14,11 @@ import android.util.Log;
 
 public class CheckOptionPluginList {
     
-    private static boolean LOGD = false;
-    private static String TAG = CheckOptionPluginList.class.getSimpleName();
+    private static final boolean LOGD = false;
+    private static final String TAG = CheckOptionPluginList.class.getSimpleName();
     
-    private static String STORED_SETTINGS = "CheckOptionsPluginSettings";
-    private static String ACTIVE_SETTINGS = "CheckOptionsPluginActiveSettings";
+    private static final String STORED_SETTINGS = "CheckOptionsPluginSettings";
+    private static final String ACTIVE_SETTINGS = "CheckOptionsPluginActiveSettings";
     
     public static Map<String, CheckOptionPlugin>  CreateStoredObjectListFromPreferences(Context context){
         return CreateObjectListFromPreferences(context, STORED_SETTINGS);
@@ -121,7 +121,7 @@ public class CheckOptionPluginList {
             }
             
         }
-        if (LOGD) Log.d(TAG, "Storing json to preferences " + jsonArray.toString());
+        if (LOGD) Log.d(TAG, "Storing json to preferences " + jsonArray);
         mShPref.edit().putString(name, jsonArray.toString()).commit();
     }
     

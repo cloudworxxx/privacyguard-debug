@@ -3,7 +3,7 @@ package ca.uwaterloo.crysp.privacyguard.Application.Fragments;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,20 +39,20 @@ public class TrafficFragment extends Fragment {
         View view = inflater.inflate(R.layout.traffic_report_fragment, null);
 
         PackageManager pm = getContext().getPackageManager();
-        ImageView appIcon = (ImageView)view.findViewById(R.id.app_icon);
+        ImageView appIcon = view.findViewById(R.id.app_icon);
         try {
             appIcon.setImageDrawable(pm.getApplicationIcon(activity.getAppPackageName()));
         } catch (PackageManager.NameNotFoundException e) {
             appIcon.setImageResource(R.drawable.default_icon);
         }
 
-        TextView appNameText = (TextView)view.findViewById(R.id.app_name);
+        TextView appNameText = view.findViewById(R.id.app_name);
         appNameText.setText(activity.getAppName());
 
-        TextView trafficOutE = (TextView)view.findViewById(R.id.trafficOutE);
-        TextView trafficOutNe = (TextView)view.findViewById(R.id.trafficsOutNe);
-        TextView trafficInE = (TextView)view.findViewById(R.id.trafficsInE);
-        TextView trafficInNe = (TextView)view.findViewById(R.id.trafficsInNe);
+        TextView trafficOutE = view.findViewById(R.id.trafficOutE);
+        TextView trafficOutNe = view.findViewById(R.id.trafficsOutNe);
+        TextView trafficInE = view.findViewById(R.id.trafficsInE);
+        TextView trafficInNe = view.findViewById(R.id.trafficsInNe);
 
         trafficOutE.setText(transfer(getDataOutE()));
         trafficOutNe.setText(transfer(getDataOutNe()));
@@ -107,16 +107,16 @@ public class TrafficFragment extends Fragment {
                 data = data /1024;
                 if(data  > 1024){
                     data = data /1024;
-                    return Integer.toString(data) + " GB";
+                    return data + " GB";
                 }else{
-                    return Integer.toString(data) + " MB";
+                    return data + " MB";
                 }
 
             }else{
-                return Integer.toString(data) + " KB";
+                return data + " KB";
             }
         }else{
-            return Integer.toString(data) + " bytes";
+            return data + " bytes";
         }
     }
 }

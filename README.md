@@ -34,7 +34,7 @@ The Google Maps API key is stored in privacyguard/app/src/debug/res/values/googl
 - Install packages via SDK Manager
 
 ### 2. Dependency error
-	 Error:(30, 30) error: package android.support.v4.app does not exist
+	 Error:(30, 30) error: package androidx.v4.app does not exist
 - In Android Studio:
 
 	1. Right click on your projects "app" folder and click on -> module settings

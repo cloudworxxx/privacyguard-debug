@@ -6,9 +6,10 @@ import java.util.Comparator;
  * Created by Near on 15-02-03.
  */
 public class ByteArray implements Comparable<ByteArray> {
-  private byte[] data;
-  private int length, capacity;
-  private int id;
+  private final byte[] data;
+  private int length;
+    private final int capacity;
+  private final int id;
   private boolean inUse;
 
   protected ByteArray(int capacity, int id) {

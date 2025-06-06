@@ -39,7 +39,7 @@ public class TunReadThread extends Thread {
     private final int LIMIT = 2048;
     private final ForwarderPools forwarderPools;
     private final Dispatcher dispatcher;
-    private LinkedBlockingQueue<IPDatagram> readQueue = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<IPDatagram> readQueue = new LinkedBlockingQueue<>();
     private static final String TAG = TunReadThread.class.getSimpleName();
     private static final boolean DEBUG = false;
 

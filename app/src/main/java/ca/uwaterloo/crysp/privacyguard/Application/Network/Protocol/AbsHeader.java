@@ -14,8 +14,9 @@ public abstract class AbsHeader {
   public void setCheckSum(byte[] checksum) {
     if(checkSum_pos < 0 || checkSum_size < 0) return;
     System.arraycopy(checksum, 0, data, checkSum_pos, checkSum_size);
-  };
-  public byte[] toByteArray() {
+  }
+
+    public byte[] toByteArray() {
     return data;
   }
 }

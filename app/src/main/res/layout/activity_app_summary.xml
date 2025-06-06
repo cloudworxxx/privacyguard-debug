@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -63,7 +63,7 @@
         app:layout_anchorGravity="bottom|right"
         app:layout_anchor="@id/content">
 
-        <android.support.design.widget.FloatingActionButton
+        <androidx.design.widget.FloatingActionButton
             android:id="@+id/stats_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,4 +78,4 @@
             android:src="@drawable/graph"
             android:elevation="10dp"/>
     </FrameLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.design.widget.CoordinatorLayout>

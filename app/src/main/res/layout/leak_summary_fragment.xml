@@ -166,9 +166,13 @@
         </LinearLayout>
 
         <com.androidplot.pie.PieChart
-            style="@style/APDefacto.Dark"
+            style="@style/Base.Theme.AppCompat"
             android:id="@+id/category_pie_chart"
             android:layout_width="fill_parent"
+            android:layout_height="match_parent"/>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/foreground_pie_chart"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
 
@@ -251,10 +255,5 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.androidplot.pie.PieChart
-            style="@style/APDefacto.Dark"
-            android:id="@+id/foreground_pie_chart"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

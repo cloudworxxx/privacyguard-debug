@@ -48,6 +48,8 @@
  */
 package org.sandrop.websockets;
 
+import android.annotation.SuppressLint;
+
 /**
  * Data Transfer Object used for displaying WebSocket connection channels.
  * Intended to decouple user interface representation from version specific
@@ -104,11 +106,8 @@ public class WebSocketChannelDTO implements Comparable<WebSocketChannelDTO> {
 	 * @return True if connection is still alive.
 	 */
 	public boolean isConnected() {
-		if (startTimestamp != null && endTimestamp == null) {
-			return true;
-		}
-		return false;
-	}
+        return startTimestamp != null && endTimestamp == null;
+    }
 	
 
 	/**
@@ -150,14 +149,9 @@ public class WebSocketChannelDTO implements Comparable<WebSocketChannelDTO> {
 		}
 		WebSocketChannelDTO other = (WebSocketChannelDTO) object;
 		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		return true;
-	}
+            return other.id == null;
+		} else return id.equals(other.id);
+    }
 
 	@Override
 	public int hashCode() {
@@ -182,7 +176,8 @@ public class WebSocketChannelDTO implements Comparable<WebSocketChannelDTO> {
 		return result;
 	}
 
-	public String getFullUri() {
+	@SuppressLint("SuspiciousIndentation")
+    public String getFullUri() {
     	StringBuilder regex = new StringBuilder();
     	if (url.matches(".*[^:/]/.*")) {
     		// place port into regex

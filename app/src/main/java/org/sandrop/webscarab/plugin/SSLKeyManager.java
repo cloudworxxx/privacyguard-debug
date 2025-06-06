@@ -75,12 +75,12 @@ public class SSLKeyManager implements X509KeyManager {
     private String _preferredAlias = null;
     private X509KeyManager _preferredKeyManager = null;
     
-    private Map<String, KeyStore> _stores = new TreeMap<String, KeyStore>();
-    private Map<String, X509KeyManager> _managers = new TreeMap<String, X509KeyManager>();
+    private final Map<String, KeyStore> _stores = new TreeMap<String, KeyStore>();
+    private final Map<String, X509KeyManager> _managers = new TreeMap<String, X509KeyManager>();
     
-    private PropertyChangeSupport _changeSupport = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport _changeSupport = new PropertyChangeSupport(this);
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /**
      * Creates a new instance of SSLKeyManager
@@ -156,7 +156,7 @@ public class SSLKeyManager implements X509KeyManager {
     }
     
     public synchronized boolean setPreferredAlias(String description, String alias) {
-        String old = String.valueOf(_preferredStore) + SEP + String.valueOf(_preferredAlias);
+        String old = _preferredStore + SEP + _preferredAlias;
         if (description != null && alias != null) {
             KeyStore ks = _stores.get(description);
             try {
@@ -164,7 +164,7 @@ public class SSLKeyManager implements X509KeyManager {
                     _preferredKeyManager = _managers.get(description);
                     _preferredStore = description;
                     _preferredAlias = alias;
-                    String now = String.valueOf(_preferredStore) + SEP + String.valueOf(_preferredAlias);
+                    String now = _preferredStore + SEP + _preferredAlias;
                     if (!now.equals(old)) 
                         _changeSupport.firePropertyChange(SELECTED_KEY, null, null);
                     return true;
@@ -176,7 +176,7 @@ public class SSLKeyManager implements X509KeyManager {
         _preferredKeyManager = null;
         _preferredStore = null;
         _preferredAlias = null;
-        String now = String.valueOf(_preferredStore) + SEP + String.valueOf(_preferredAlias);
+        String now = _preferredStore + SEP + _preferredAlias;
         if (!now.equals(old)) 
             _changeSupport.firePropertyChange(SELECTED_KEY, null, null);
         return false;
@@ -215,7 +215,7 @@ public class SSLKeyManager implements X509KeyManager {
         String[] parts = alias.split(SEP, 2);
         String description = parts[0];
         alias = parts[1];
-        X509KeyManager km = (X509KeyManager) _managers.get(description);
+        X509KeyManager km = _managers.get(description);
         return km.getCertificateChain(alias);
     }
     

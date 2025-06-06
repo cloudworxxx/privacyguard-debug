@@ -41,7 +41,7 @@ import org.sandrop.webscarab.plugin.AbstractPluginModel;
 
 public class ManualRequestModel extends AbstractPluginModel {
     
-    private FrameworkModel _model;
+    private final FrameworkModel _model;
     
     /** Creates a new instance of ManualRequestModel */
     public ManualRequestModel(FrameworkModel model) {

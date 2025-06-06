@@ -34,8 +34,8 @@ import java.util.Map;
  * Created by frank on 2014-04-01.
  */
 public class ForwarderPools {
-    private HashMap<Pair<Integer, Byte>, AbsForwarder> portToForwarder;
-    private MyVpnService vpnService;
+    private final HashMap<Pair<Integer, Byte>, AbsForwarder> portToForwarder;
+    private final MyVpnService vpnService;
     private static final String TAG = ForwarderPools.class.getSimpleName();
     private static final boolean DEBUG = false;
 

@@ -46,12 +46,12 @@ import org.sandrop.webscarab.util.ReentrantReaderPreferenceReadWriteLock;
  */
 public abstract class FilteredConversationModel extends AbstractConversationModel {
     
-    private ConversationModel _model;
+    private final ConversationModel _model;
     
-    private ReentrantReaderPreferenceReadWriteLock _rwl = new ReentrantReaderPreferenceReadWriteLock();
+    private final ReentrantReaderPreferenceReadWriteLock _rwl = new ReentrantReaderPreferenceReadWriteLock();
     
     // contains conversations that should be visible
-    private List _conversations = new ArrayList();
+    private final List _conversations = new ArrayList();
     
     /** Creates a new instance of FilteredConversationModel */
     public FilteredConversationModel(FrameworkModel model, ConversationModel cmodel) {
@@ -86,7 +86,7 @@ public abstract class FilteredConversationModel extends AbstractConversationMode
     protected boolean isFiltered(ConversationID id) {
         try {
             _rwl.readLock().acquire();
-            return _conversations.indexOf(id) == -1;
+            return !_conversations.contains(id);
         } catch (InterruptedException ie) {
             // _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
             return false;

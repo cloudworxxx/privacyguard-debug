@@ -74,7 +74,7 @@ public class Cookie {
     private String _version = null;
     private boolean _httponly = false;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /**
      * Creates a new instance of Cookie
@@ -271,10 +271,9 @@ public class Cookie {
      *
      */    
     public String toString() {
-        StringBuffer buff = new StringBuffer();
-        buff.append(_date.getTime()).append(" ");
-        buff.append(setCookie());
-        return buff.toString();
+        String buff = _date.getTime() + " " +
+                setCookie();
+        return buff;
     }
 
 }

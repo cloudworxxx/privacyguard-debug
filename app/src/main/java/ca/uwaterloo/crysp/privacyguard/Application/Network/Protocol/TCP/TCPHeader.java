@@ -19,7 +19,9 @@ public class TCPHeader extends TransportHeader {
   public static final byte DATA = (byte)(PSH | ACK);
   public static final byte RST = 0x04;
   private static final String TAG = "TCPHeader";
-  private int offset, seq_num, ack_num;
+  private final int offset;
+    private int seq_num;
+    private int ack_num;
 
   public TCPHeader(byte[] data) {
     super(data);

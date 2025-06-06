@@ -42,8 +42,8 @@ public class UDPForwarder extends AbsForwarder { //} implements ICommunication {
     //private InetAddress dstAddress;
     //private int dstPort;
     private DatagramSocket socket;
-    private ByteBuffer packet;
-    private DatagramPacket response;
+    private final ByteBuffer packet;
+    private final DatagramPacket response;
     private UDPForwarderWorker worker;
     private boolean first = true;
     protected long releaseTime;

@@ -40,13 +40,13 @@ import java.util.logging.Logger;
 
 public class Script {
     
-    private File _file;
+    private final File _file;
     private String _script;
     private long _lastModified;
     private boolean _enabled;
     private String _language = null;
     
-    private Logger _logger = Logger.getLogger(getClass().toString());
+    private final Logger _logger = Logger.getLogger(getClass().toString());
     
     /** Creates a new instance of Script */
     public Script(File file) throws IOException {

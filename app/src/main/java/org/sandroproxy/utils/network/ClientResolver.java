@@ -19,11 +19,11 @@ import android.util.Log;
 public class ClientResolver implements IClientResolver{
 
     
-    private static boolean LOGD = false;
-    private static String TAG = ClientResolver.class.getSimpleName();
+    private static final boolean LOGD = false;
+    private static final String TAG = ClientResolver.class.getSimpleName();
     
-    private Context mContext;
-    private PackageManager packageManager;
+    private final Context mContext;
+    private final PackageManager packageManager;
 
     public ClientResolver(Context context){
         this.mContext = context;

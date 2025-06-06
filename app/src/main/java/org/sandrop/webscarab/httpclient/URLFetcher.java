@@ -73,7 +73,7 @@ public class URLFetcher implements HTTPClient {
     private String _keyFingerprint = null;
     private SSLContextManager _sslContextManager = null;
 
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
 
     private String _httpProxy = "";
     private int _httpProxyPort = -1;
@@ -104,7 +104,7 @@ public class URLFetcher implements HTTPClient {
     private static Map<String, String> _proxyAuthCredsBasic;
     private static Map<String, InetAddress> _cachedLocalAddresses;
     
-    private static boolean LOGD = false;
+    private static final boolean LOGD = false;
 
     /** Creates a new instance of URLFetcher
      */
@@ -244,7 +244,7 @@ public class URLFetcher implements HTTPClient {
         request.deleteHeader("X-SSLClientCertificate");
         if (keyFingerprint == null && _keyFingerprint == null) {
             // no problem
-        } else if (keyFingerprint != null && _keyFingerprint != null && keyFingerprint.equals(_keyFingerprint)) {
+        } else if (keyFingerprint != null && keyFingerprint.equals(_keyFingerprint)) {
             // no problem
         } else {
             // force a new connection, and change the fingerprint
@@ -305,7 +305,7 @@ public class URLFetcher implements HTTPClient {
                 request.write(_out);
             }
             _out.flush();
-            _logger.finest("Request : \n" + request.toString());
+            _logger.finest("Request : \n" + request);
 
             _response = new Response();
             _response.setRequest(request);
@@ -325,7 +325,7 @@ public class URLFetcher implements HTTPClient {
                 if (headers != null)
                     for (int i=0; i< headers.length; i++)
                         buff.append(headers[i].getName()).append(": ").append(headers[i].getValue()).append("\n");
-                _logger.finest("Response:\n" + buff.toString());
+                _logger.finest("Response:\n" + buff);
             }
 
             if (status.equals("407")) {
@@ -340,7 +340,7 @@ public class URLFetcher implements HTTPClient {
                     _proxyAuthCreds = _authenticator.getProxyCredentials(_httpProxy, challenges);
                 }
                 proxyAuthHeader = constructAuthenticationHeader(challenges, _proxyAuthCreds, url.getPath(), request.getMethod());
-                if (proxyAuthHeader != null && oldProxyAuthHeader != null && oldProxyAuthHeader.equals(proxyAuthHeader)) {
+                if (oldProxyAuthHeader != null && oldProxyAuthHeader.equals(proxyAuthHeader)) {
                     _logger.info("No possible authentication");
                     proxyAuthHeader = null;
                 }
@@ -355,7 +355,7 @@ public class URLFetcher implements HTTPClient {
                 _logger.finer("Auth creds are " + _authCreds);
                 authHeader = constructAuthenticationHeader(challenges, _authCreds, url.getPath(), request.getMethod());
                 _logger.finer("Auth header is " + authHeader);
-                if (authHeader != null && oldAuthHeader != null && oldAuthHeader.equals(authHeader)) {
+                if (oldAuthHeader != null && oldAuthHeader.equals(authHeader)) {
                     _logger.info("No possible authentication");
                     authHeader = null;
                 }
@@ -368,7 +368,7 @@ public class URLFetcher implements HTTPClient {
             _logger.info(request.getURL() +" : " + _response.getStatusLine());
 
             String connection = _response.getHeader("Proxy-Connection");
-            if (connection != null && "close".equalsIgnoreCase(connection)) {
+            if ("close".equalsIgnoreCase(connection)) {
                 _in = null;
                 _out = null;
                 // do NOT close the socket itself, since the message body has not yet been read!

@@ -69,23 +69,23 @@ public class FileSystemStore implements SiteModelStore {
     
     private static final HttpUrl[] NO_CHILDREN = new HttpUrl[0];
     
-    private File _dir;
+    private final File _dir;
     private File _conversationDir;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
-    private List _conversations = new ArrayList();
-    private SortedMap _conversationProperties = new TreeMap(new NullComparator());
-    private SortedMap _urlProperties = new TreeMap(new NullComparator());
+    private final List _conversations = new ArrayList();
+    private final SortedMap _conversationProperties = new TreeMap(new NullComparator());
+    private final SortedMap _urlProperties = new TreeMap(new NullComparator());
     
-    private SortedMap _urlConversations = new TreeMap(new NullComparator());
-    private SortedMap _urls = new TreeMap(new NullComparator());
+    private final SortedMap _urlConversations = new TreeMap(new NullComparator());
+    private final SortedMap _urls = new TreeMap(new NullComparator());
     
-    private Map _requestCache = new MRUCache(16);
-    private Map _responseCache = new MRUCache(16);
-    private Map _urlCache = new MRUCache(32);
+    private final Map _requestCache = new MRUCache(16);
+    private final Map _responseCache = new MRUCache(16);
+    private final Map _urlCache = new MRUCache(32);
     
-    private SortedMap _cookies = new TreeMap();
+    private final SortedMap _cookies = new TreeMap();
     
     public static boolean isExistingSession(File dir) {
         File f = new File(dir, "conversations");
@@ -699,7 +699,7 @@ public class FileSystemStore implements SiteModelStore {
             list = new ArrayList();
             _cookies.put(key, list);
         }
-        if (list.indexOf(cookie) > -1) return false;
+        if (list.contains(cookie)) return false;
         list.add(cookie);
         return true;
     }

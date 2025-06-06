@@ -69,14 +69,14 @@ import org.sandrop.webscarab.util.NullComparator;
 public class SSLContextManager {
     
     
-    private static Logger _logger = Logger.getLogger(SSLContextManager.class.getName());
+    private static final Logger _logger = Logger.getLogger(SSLContextManager.class.getName());
     
-    private Map _contextMaps = new TreeMap(new NullComparator());
+    private final Map _contextMaps = new TreeMap(new NullComparator());
     private SSLContext _noClientCertContext;
     private String _defaultKey = null;
-    private Map _aliasPasswords = new HashMap();
-    private List _keyStores = new ArrayList();
-    private Map _keyStoreDescriptions = new HashMap();
+    private final Map _aliasPasswords = new HashMap();
+    private final List _keyStores = new ArrayList();
+    private final Map _keyStoreDescriptions = new HashMap();
     private TrustManager[] _trustManagers;
     
     static{
@@ -87,7 +87,7 @@ public class SSLContextManager {
         }
     }
     
-    private static TrustManager[] _trustAllCerts = new TrustManager[] {
+    private static final TrustManager[] _trustAllCerts = new TrustManager[] {
         new X509TrustManager() {
             public X509Certificate[] getAcceptedIssuers() {
                 return null;
@@ -190,7 +190,7 @@ public class SSLContextManager {
         try {
             String fingerprint = Encoding.hashMD5(cert.getEncoded());
             for (int i=0; i<fingerprint.length(); i+=2) {
-                buff.append(fingerprint.substring(i, i+1)).append(":");
+                buff.append(fingerprint.charAt(i)).append(":");
             }
             buff.deleteCharAt(buff.length()-1);
         } catch (CertificateEncodingException e) {

@@ -44,9 +44,9 @@ import org.sandrop.webscarab.util.EventListenerList;
  */
 public abstract class AbstractUrlModel implements UrlModel {
     
-    private EventListenerList _listenerList = new EventListenerList();
+    private final EventListenerList _listenerList = new EventListenerList();
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of AbstractUrlModel */
     public AbstractUrlModel() {

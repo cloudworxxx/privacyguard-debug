@@ -40,8 +40,8 @@ import org.sandrop.webscarab.model.HttpUrl;
 
 public class ListenerSpec implements Comparable {
 
-    private String _address;
-    private int _port;
+    private final String _address;
+    private final int _port;
     private HttpUrl _base = null;
     private boolean _primaryProxy = false;
     private boolean _transparentProxy = false;
@@ -68,7 +68,7 @@ public class ListenerSpec implements Comparable {
         _transparentProxySecure = transparentProxySecure;
         _captureData = captureData;
         _useFakeCerts = useFakeCerts;
-        if (_captureData == false && storeSslAsPcap){
+        if (!_captureData && storeSslAsPcap){
             _storeSslAsPcap = true;
         }
     }

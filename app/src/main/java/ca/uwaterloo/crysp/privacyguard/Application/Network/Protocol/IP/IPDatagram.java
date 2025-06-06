@@ -59,17 +59,16 @@ public class IPDatagram {
 
     public String headerToString()
     {
-        StringBuffer sb = new StringBuffer("SrcAddr=");
-        sb.append(header.getSrcAddress());
-        sb.append(" DstAddr=");
-        sb.append(header.getDstAddress());
-        sb.append(" ");
+        String sb = "SrcAddr=" + header.getSrcAddress() +
+                " DstAddr=" +
+                header.getDstAddress() +
+                " ";
         //if (payLoad() instanceof TCPDatagram) {
         //    sb.append(((TCPDatagram)payLoad()).debugString());
         //}
         //if (payLoad() instanceof UDPDatagram) {
         //    sb.append(((UDPDatagram)payLoad()).debugString());
         //}
-        return sb.toString();
+        return sb;
     }
 }

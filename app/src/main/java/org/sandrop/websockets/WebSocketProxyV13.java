@@ -278,11 +278,11 @@ public class WebSocketProxyV13 extends WebSocketProxy {
 //			}
 		}
 		
-		private List<WebSocketFrameV13> receivedFrames = new ArrayList<WebSocketFrameV13>();
+		private final List<WebSocketFrameV13> receivedFrames = new ArrayList<WebSocketFrameV13>();
 		
 		/**
 		 * Temporary buffer that will be added to
-		 * {@link WebSocketMessage#receivedFrames} as soon as whole frame is read.
+		 *  as soon as whole frame is read.
 		 */
 		private WebSocketFrameV13 currentFrame;
 

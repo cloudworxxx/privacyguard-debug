@@ -52,7 +52,7 @@ public class BrowserCache extends ProxyPlugin {
     }
     
     public String getPluginName() {
-        return new String("Browser Cache");
+        return "Browser Cache";
     }
     
     public void setEnabled(boolean bool) {
@@ -71,7 +71,7 @@ public class BrowserCache extends ProxyPlugin {
     
     private class Plugin implements HTTPClient {
     
-        private HTTPClient _in;
+        private final HTTPClient _in;
         
         public Plugin(HTTPClient in) {
             _in = in;

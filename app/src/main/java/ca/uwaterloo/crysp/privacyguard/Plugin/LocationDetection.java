@@ -1,5 +1,6 @@
 package ca.uwaterloo.crysp.privacyguard.Plugin;
 
+import android.Manifest;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -8,7 +9,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 
 import ca.uwaterloo.crysp.privacyguard.Application.Logger;
 import ca.uwaterloo.crysp.privacyguard.Plugin.LeakReport.LeakCategory;
@@ -25,10 +27,10 @@ import java.util.Map;
 public class LocationDetection implements IPlugin {
     private final static String TAG = LocationDetection.class.getSimpleName();
     private final static boolean DEBUG = false;
-    private static long MIN_TIME_INTERVAL_PASSIVE = 60000; //one minute
-    private static float MIN_DISTANCE_INTERVAL = 10; // 10 meters
+    private static final long MIN_TIME_INTERVAL_PASSIVE = 60000; //one minute
+    private static final float MIN_DISTANCE_INTERVAL = 10; // 10 meters
     private static LocationManager mLocationManager;
-    private static Map<String, Location> mLocations = Collections.synchronizedMap(new HashMap<String, Location>());
+    private static final Map<String, Location> mLocations = Collections.synchronizedMap(new HashMap<String, Location>());
     private static String routerMacAddress, routerMacAddressEnc;
 
     @Override
@@ -86,6 +88,7 @@ public class LocationDetection implements IPlugin {
         return response;
     }
 
+    @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void setContext(Context context) {
         synchronized (mLocations) {
@@ -105,6 +108,7 @@ public class LocationDetection implements IPlugin {
         }
     }
 
+    @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     public void updateLastLocations() {
         List<String> providers = mLocationManager.getAllProviders();
         for (String provider : providers) {

@@ -3,8 +3,8 @@ package org.sandroproxy.utils;
 public class DNSResponseDto {
     
     private String providerId;
-    private String request;
-    private long timestamp = System.currentTimeMillis();;
+    private final String request;
+    private long timestamp = System.currentTimeMillis();
     private int reqTimes = 0;
     private byte[] dnsResponse;
     
@@ -83,11 +83,10 @@ public class DNSResponseDto {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("request=").append(request);
-        sb.append(", ").append("timestamp=").append(timestamp);
-        sb.append(", ").append("reqTimes=").append(reqTimes);
-        sb.append(", ").append("dnsResponse=").append(dnsResponse);
-        return sb.toString();
+        String sb = "request=" + request +
+                ", " + "timestamp=" + timestamp +
+                ", " + "reqTimes=" + reqTimes +
+                ", " + "dnsResponse=" + String.valueOf(dnsResponse);
+        return sb;
     }
 }

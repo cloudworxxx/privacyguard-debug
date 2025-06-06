@@ -50,10 +50,10 @@ import java.util.Iterator;
  */
 public class Parser {
     
-    private static List<ContentParser> _parsers = new ArrayList<ContentParser>();
+    private static final List<ContentParser> _parsers = new ArrayList<ContentParser>();
     
     // we cache the 8 most recent messages and their parsed versions
-    private static MRUCache<Message, Object> _cache = new MRUCache<Message, Object>(8);
+    private static final MRUCache<Message, Object> _cache = new MRUCache<Message, Object>(8);
     
     static {
         _parsers.add(new HTMLParser());

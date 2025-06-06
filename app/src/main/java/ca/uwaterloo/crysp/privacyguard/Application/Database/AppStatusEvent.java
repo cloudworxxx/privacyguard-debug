@@ -1,15 +1,15 @@
 package ca.uwaterloo.crysp.privacyguard.Application.Database;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by lucas on 10/04/17.
  */
 
 public class AppStatusEvent implements Comparable<AppStatusEvent> {
-    private String packageName;
-    private long timeStamp;
-    private boolean foreground;
+    private final String packageName;
+    private final long timeStamp;
+    private final boolean foreground;
 
     public AppStatusEvent(String packageName, long timeStamp, int foreground) {
         this.packageName = packageName;

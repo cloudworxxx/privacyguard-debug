@@ -52,10 +52,10 @@ import java.util.logging.Logger;
  */
 public class SpiderModel extends AbstractPluginModel {
     
-    private FrameworkModel _model;
-    private SpiderUrlModel _urlModel;
+    private final FrameworkModel _model;
+    private final SpiderUrlModel _urlModel;
     
-    private List<Link> _linkQueue = new LinkedList<Link>();
+    private final List<Link> _linkQueue = new LinkedList<Link>();
     
     private String _allowedDomains = null;
     private String _forbiddenPaths = null;
@@ -64,7 +64,7 @@ public class SpiderModel extends AbstractPluginModel {
     
     private NamedValue[] _extraHeaders = null;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of SpiderModel */
     public SpiderModel(FrameworkModel model) {
@@ -110,8 +110,6 @@ public class SpiderModel extends AbstractPluginModel {
             _linkQueue.add(link);
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            //_model.readLock().release();
         }
         // _logger.info("Done queuing " + link);
     }
@@ -130,9 +128,6 @@ public class SpiderModel extends AbstractPluginModel {
             }
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            //_model.readLock().release();
-            // _logger.info("Done dequeuing a link " + link);
         }
         return link;
     }
@@ -143,8 +138,6 @@ public class SpiderModel extends AbstractPluginModel {
             _linkQueue.clear();
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            //_model.readLock().release();
         }
     }
     
@@ -154,8 +147,6 @@ public class SpiderModel extends AbstractPluginModel {
             return _linkQueue.size();
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            //_model.readLock().release();
         }
         return 0;
     }

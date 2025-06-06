@@ -48,7 +48,7 @@ import java.util.List;
  */
 public class Diff {
 
-    private static final CharSequence DELETE = new String();
+    private static final CharSequence DELETE = "";
 
     private Diff() {
     }
@@ -133,7 +133,7 @@ public class Diff {
         }
         if (index > previous)
             list.add(orig.subSequence(previous, index));
-        return (CharSequence[]) list.toArray(new CharSequence[list.size()]);
+        return list.toArray(new CharSequence[list.size()]);
     }
     
     public static List<Edit> getEdits(CharSequence src, CharSequence dst, char boundary) {
@@ -170,7 +170,7 @@ public class Diff {
         return edits;
     }
     
-    public static List<ArrayEdit> getEdits(CharSequence src[], CharSequence dst[]) {
+    public static List<ArrayEdit> getEdits(CharSequence[] src, CharSequence[] dst) {
         return getEdits(0, src.length, src, 0, dst.length, dst);
     }
 
@@ -403,11 +403,11 @@ public class Diff {
     }
 
     private static class LCS {
-        private int srcLocation;
+        private final int srcLocation;
 
-        private int dstLocation;
+        private final int dstLocation;
 
-        private int length;
+        private final int length;
 
         public LCS(int srcLocation, int dstLocation, int len) {
             this.srcLocation = srcLocation;
@@ -434,9 +434,11 @@ public class Diff {
 
     public static class Edit {
 
-        private int srcLocation, dstLocation;
+        private final int srcLocation;
+        private final int dstLocation;
 
-        private CharSequence src, dst;
+        private final CharSequence src;
+        private final CharSequence dst;
 
         public Edit(int srcLocation, CharSequence src, int dstLocation,
                 CharSequence dst) {
@@ -477,7 +479,10 @@ public class Diff {
 
     public static class ArrayEdit {
 
-        private int srcStart, srcEnd, dstStart, dstEnd;
+        private final int srcStart;
+        private final int srcEnd;
+        private final int dstStart;
+        private final int dstEnd;
 
         public ArrayEdit(int srcStart, int srcEnd, int dstStart, int dstEnd) {
             if (srcStart < 0)

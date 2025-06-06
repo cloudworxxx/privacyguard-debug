@@ -34,10 +34,10 @@ package org.sandrop.webscarab.plugin;
 
 public class DomainCredential {
     
-    private String _host;
-    private String _domain;
-    private String _username;
-    private String _password;
+    private final String _host;
+    private final String _domain;
+    private final String _username;
+    private final String _password;
     
     /** Creates a new instance of DomainCredential */
     public DomainCredential(String host, String domain, String username, String password) {

@@ -30,6 +30,7 @@ import org.sandrop.websockets.WebSocketMessage;
 import org.sandrop.websockets.WebSocketMessageDTO;
 import org.sandroproxy.utils.DNSResponseDto;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -37,9 +38,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+/** @noinspection Annotator, Annotator , Annotator , Annotator , Annotator , Annotator , Annotator , Annotator , Annotator , Annotator */
 public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore{
     
-    private Context mContext;
+    private final Context mContext;
     
     private static String mRootDirName;
     
@@ -58,9 +60,9 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     
     private static boolean mFirstTableCreation = false;
     
-    private Map<String, IStoreEventListener> listOfEventListeners = new LinkedHashMap<String, IStoreEventListener>();
+    private final Map<String, IStoreEventListener> listOfEventListeners = new LinkedHashMap<String, IStoreEventListener>();
     
-    public static final String mTableNames[] = {
+    public static final String[] mTableNames = {
         "conversation", "request", "response", "content", "headers", "cookies", "urls", "websocket_channel", "websocket_message", "dns_responses"
     };
     
@@ -539,9 +541,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     }
     
     public void addEventListeners(String id, IStoreEventListener eventListener){
-        if (this.listOfEventListeners.containsKey(id)){
-            this.listOfEventListeners.remove(id);
-        }
+        this.listOfEventListeners.remove(id);
         this.listOfEventListeners.put(id, eventListener);
     }
     
@@ -554,7 +554,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private void eventNewConversation(long conversationId, int type, long timestamp){
         if (listOfEventListeners != null){
             for (Iterator<IStoreEventListener> iterator = listOfEventListeners.values().iterator(); iterator.hasNext();) {
-                IStoreEventListener storeEventListener = (IStoreEventListener) iterator.next();
+                IStoreEventListener storeEventListener = iterator.next();
                 storeEventListener.newConversation(conversationId, type, timestamp);
             }
         }
@@ -563,7 +563,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private void eventUpdateConversation(long conversationId,  int status, boolean haveProtocolSwitch, long timestamp){
         if (listOfEventListeners != null){
             for (Iterator<IStoreEventListener> iterator = listOfEventListeners.values().iterator(); iterator.hasNext();) {
-                IStoreEventListener storeEventListener = (IStoreEventListener) iterator.next();
+                IStoreEventListener storeEventListener = iterator.next();
                 if (status == FrameworkModel.CONVERSATION_STATUS_REQ_SEND){
                     storeEventListener.startConversation(conversationId, timestamp);
                 }
@@ -577,7 +577,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private void eventSocketChannelChangedStatus(long conversationId,  long channelId, long timestamp){
         if (listOfEventListeners != null){
             for (Iterator<IStoreEventListener> iterator = listOfEventListeners.values().iterator(); iterator.hasNext();) {
-                IStoreEventListener storeEventListener = (IStoreEventListener) iterator.next();
+                IStoreEventListener storeEventListener = iterator.next();
                 storeEventListener.socketChannelChanged(conversationId, channelId, timestamp);
             }
         }
@@ -586,7 +586,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private void eventSocketFrameSend(long conversationId, long channelId, long messageId, long timestamp){
         if (listOfEventListeners != null){
             for (Iterator<IStoreEventListener> iterator = listOfEventListeners.values().iterator(); iterator.hasNext();) {
-                IStoreEventListener storeEventListener = (IStoreEventListener) iterator.next();
+                IStoreEventListener storeEventListener = iterator.next();
                 storeEventListener.socketFrameSend(conversationId, channelId, messageId, timestamp);
             }
         }
@@ -595,12 +595,13 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private void eventSocketFrameReceived(long conversationId, long channelId, long messageId, long timestamp){
         if (listOfEventListeners != null){
             for (Iterator<IStoreEventListener> iterator = listOfEventListeners.values().iterator(); iterator.hasNext();) {
-                IStoreEventListener storeEventListener = (IStoreEventListener) iterator.next();
+                IStoreEventListener storeEventListener = iterator.next();
                 storeEventListener.socketFrameReceived(conversationId, channelId, messageId, timestamp);
             }
         }
     }
     
+    @SuppressLint("Range")
     private List<WebSocketChannelDTO> buildChannelDTOs(Cursor cs){
         ArrayList<WebSocketChannelDTO> channels = new ArrayList<WebSocketChannelDTO>();
         while (cs.moveToNext()) {
@@ -610,7 +611,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
             channel.port = cs.getInt(cs.getColumnIndex(SOCKET_CHANNEL_PORT));
             channel.url = cs.getString(cs.getColumnIndex(SOCKET_CHANNEL_URL));
             channel.startTimestamp = cs.getLong(cs.getColumnIndex(SOCKET_CHANNEL_START_TIMESTAMP));
-            Long endTimestamp = cs.getLong(cs.getColumnIndex(SOCKET_CHANNEL_END_TIMESTAMP));
+            @SuppressLint("Range") Long endTimestamp = cs.getLong(cs.getColumnIndex(SOCKET_CHANNEL_END_TIMESTAMP));
             channel.endTimestamp = endTimestamp == 0 ?  null : endTimestamp;
             channel.historyId = cs.getInt(cs.getColumnIndex(SOCKET_CHANNEL_CONV_ID));
             
@@ -659,11 +660,11 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     private Map<String, DNSResponseDto> buildDnsResponseDTOs(Cursor cs){
         Map<String, DNSResponseDto> responses = new HashMap<String, DNSResponseDto>();
         while (cs.moveToNext()) {
-            String request = cs.getString(cs.getColumnIndex(DNS_RESPONSE_REQUEST));
-            long timestamp = cs.getLong(cs.getColumnIndex(DNS_RESPONSE_TS));
-            byte[] responseBlob = cs.getBlob(cs.getColumnIndex(DNS_RESPONSE_RESPONSE_BLOB));
-            String providerId = cs.getString(cs.getColumnIndex(DNS_RESPONSE_PROVIDER_ID));
-            int reqTimes = cs.getInt(cs.getColumnIndex(DNS_RESPONSE_REQUESTS_NR));
+            @SuppressLint("Range") String request = cs.getString(cs.getColumnIndex(DNS_RESPONSE_REQUEST));
+            @SuppressLint("Range") long timestamp = cs.getLong(cs.getColumnIndex(DNS_RESPONSE_TS));
+            @SuppressLint("Range") byte[] responseBlob = cs.getBlob(cs.getColumnIndex(DNS_RESPONSE_RESPONSE_BLOB));
+            @SuppressLint("Range") String providerId = cs.getString(cs.getColumnIndex(DNS_RESPONSE_PROVIDER_ID));
+            @SuppressLint("Range") int reqTimes = cs.getInt(cs.getColumnIndex(DNS_RESPONSE_REQUESTS_NR));
             DNSResponseDto response = new DNSResponseDto(request, timestamp, providerId, responseBlob, reqTimes);
             response.setDNSResponse(responseBlob);
             responses.put(request, response);
@@ -696,6 +697,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         return responseList;
     }
     
+    @SuppressLint("Range")
     private WebSocketMessageDTO buildChannelMessagesDTO(Cursor cs, WebSocketChannelDTO channel){
         WebSocketMessageDTO message = new WebSocketMessageDTO();
         message.id = cs.getInt(cs.getColumnIndex(SOCKET_MSG_ID));
@@ -703,12 +705,12 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         message.payloadLength = cs.getInt(cs.getColumnIndex(SOCKET_MSG_PAYLOAD_LENGTH));
         
         if (message.opcode == WebSocketMessage.OPCODE_TEXT){
-            byte[] payloadAsString = cs.getBlob(cs.getColumnIndex(SOCKET_MSG_PAYLOAD_UTF8)); 
+            @SuppressLint("Range") byte[] payloadAsString = cs.getBlob(cs.getColumnIndex(SOCKET_MSG_PAYLOAD_UTF8));
             message.payload = new String(payloadAsString);
         }else{
             message.payload = cs.getBlob(cs.getColumnIndex(SOCKET_MSG_PAYLOAD_BYTES)); 
         }
-        message.isOutgoing = cs.getInt(cs.getColumnIndex(SOCKET_MSG_IS_OUTGOING)) == 1 ? true : false;
+        message.isOutgoing = cs.getInt(cs.getColumnIndex(SOCKET_MSG_IS_OUTGOING)) == 1;
         message.timestamp = cs.getLong(cs.getColumnIndex(SOCKET_MSG_TIMESTAMP)); 
         message.readableOpcode = WebSocketMessage.opcode2string(message.opcode);
         message.channel = channel;
@@ -805,6 +807,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         return listMessages;
     }
     
+    @SuppressLint("Range")
     public List<Long> getSocketChannelMessageIds(long conversationId){
         List<Long> listMessageIds = new ArrayList<Long>();
         String selection = SOCKET_MSG_HANDSHAKE_ID + " = ? ";
@@ -908,7 +911,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     }
     
     
-    private List<Long> channelsIds = new ArrayList<Long>();
+    private final List<Long> channelsIds = new ArrayList<Long>();
     
     public void insertOrUpdateChannel(WebSocketChannelDTO channel) throws SQLException {
         ContentValues msgVal = new ContentValues();
@@ -941,7 +944,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     
     private void addHeaders(long id, Message message, int headersParentType){
         NamedValue[] requestHeaders =  message.getHeaders();
-        if (requestHeaders != null && requestHeaders.length > 0){
+        if (requestHeaders != null){
             for (NamedValue namedValue : requestHeaders) {
                 ContentValues reqHeadersCV = new ContentValues();
                 reqHeadersCV.put(HEADERS_PARENT_TYPE, headersParentType);
@@ -1276,10 +1279,11 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         return 0;
     }
     
+    @SuppressLint("Range")
     private Request createRequest(Cursor cs){
         Request req = new Request();
         req.setMethod(cs.getString(cs.getColumnIndex(REQUEST_METHOD)));
-        String url = cs.getString(cs.getColumnIndex(REQUEST_URL));
+        @SuppressLint("Range") String url = cs.getString(cs.getColumnIndex(REQUEST_URL));
         try {
             req.setURL(new HttpUrl(url));
         } catch (MalformedURLException e) {
@@ -1313,6 +1317,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         return null;
     }
     
+    @SuppressLint("Range")
     private Response createResponse(Cursor cs){
         Response resp = new Response();
         resp.setStatus(cs.getString(cs.getColumnIndex(RESPONSE_STATUS_CODE)));
@@ -1320,6 +1325,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
         return resp;
     }
     
+    @SuppressLint("Range")
     public Response getResponseByRequestId(long requestId){
         Cursor cs = null;
         Cursor csConversation = null;
@@ -1386,8 +1392,8 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
             NamedValue[] values = new NamedValue[cs.getCount()];
             int i = 0;
             while(cs.moveToNext()){
-                String name = cs.getString(cs.getColumnIndex(HEADERS_NAME));
-                String value = cs.getString(cs.getColumnIndex(HEADERS_VALUE));
+                @SuppressLint("Range") String name = cs.getString(cs.getColumnIndex(HEADERS_NAME));
+                @SuppressLint("Range") String value = cs.getString(cs.getColumnIndex(HEADERS_VALUE));
                 values[i++] = new NamedValue(name, value);
             }
             return values;
@@ -1403,7 +1409,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
             String[] arg = new String[] {String.valueOf(parentId), String.valueOf(parentType)};
             cs = mDatabase.query(mTableNames[TABLE_CONTENT_ID], null, where, arg, null, null, null);
             if(cs.moveToFirst()){
-                String fileName = cs.getString(cs.getColumnIndex(CONTENT_FILE_NAME));
+                @SuppressLint("Range") String fileName = cs.getString(cs.getColumnIndex(CONTENT_FILE_NAME));
                 return fileName;
             }
         } finally{
@@ -1413,6 +1419,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     }
     
     
+    @SuppressLint("Range")
     private Conversation createConversationObj(Cursor cs){
         Conversation conv = new Conversation();
         conv.UNIQUE_ID = cs.getLong(cs.getColumnIndex(CONVERSATION_UNIQUE_ID));
@@ -1464,7 +1471,7 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
             ConversationFilter filter = ConversationFilter.createTransFilter(dateFrom, dateTo, statusCode, contentType, orderBy);
             cs = mDatabase.query(mTableNames[TABLE_COVERSATION_ID], null, filter.whereClause, filter.getArgs(), null, null, filter.orderBy);
             while (cs.moveToNext()){
-                long id = cs.getLong(cs.getColumnIndex(CONVERSATION_UNIQUE_ID));
+                @SuppressLint("Range") long id = cs.getLong(cs.getColumnIndex(CONVERSATION_UNIQUE_ID));
                 list.add(id);
             }
         } finally{
@@ -1493,12 +1500,9 @@ public class SqlLiteStore implements SiteModelStore, FragmentsStore, SpiderStore
     
     public long deleteDnsProxyResponse(String request){
         long result = 0;
-        try{
-            String where = DNS_RESPONSE_REQUEST + " = ?";
-            String[] args = new String[] {String.valueOf(request)};
-            result = mDatabase.delete(mTableNames[TABLE_DNS_RESPONSES], where, args);
-        } finally{
-        }
+        String where = DNS_RESPONSE_REQUEST + " = ?";
+        String[] args = new String[] {String.valueOf(request)};
+        result = mDatabase.delete(mTableNames[TABLE_DNS_RESPONSES], where, args);
         return result;
     }
     

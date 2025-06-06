@@ -333,12 +333,11 @@ public class Request extends Message {
         if (_method == null || _url == null || _version == null) {
             return "Unitialised Request!";
         }
-        StringBuffer buff = new StringBuffer();
-        buff.append(_method).append(" ");
-        buff.append(_url).append(" ");
-        buff.append(_version).append(crlf);
-        buff.append(super.toString(crlf));
-        return buff.toString();
+        String buff = _method + " " +
+                _url + " " +
+                _version + crlf +
+                super.toString(crlf);
+        return buff;
     }
     
     public boolean equals(Object obj) {

@@ -45,7 +45,7 @@ public class MRUCache<K, V> extends LinkedHashMap<K, V> {
 	 * 
 	 */
 	private static final long serialVersionUID = 147426251266610197L;
-	private int _maxSize;
+	private final int _maxSize;
     
     /**
      * Creates a new instance of MRUCache, with an initial size of 16, and

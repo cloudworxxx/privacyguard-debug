@@ -34,6 +34,7 @@ package org.sandrop.webscarab.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 import org.sandrop.webscarab.model.HttpUrl;
@@ -46,7 +47,7 @@ import org.sandrop.webscarab.model.Request;
  */
 public class RequestConverter {
 
-    private static Logger _logger = Logger.getLogger("org.owasp.webscarab.util.RequestConverter");
+    private static final Logger _logger = Logger.getLogger("org.owasp.webscarab.util.RequestConverter");
     
     public static Request convertGetToPost(Request get) {
         if (!"GET".equals(get.getMethod()))
@@ -56,14 +57,7 @@ public class RequestConverter {
         HttpUrl url = get.getURL();
         String query = url.getQuery();
         if (query != null) {
-            try {
-                post.setContent(query.getBytes("ASCII"));
-            } catch (UnsupportedEncodingException uee) {
-                _logger.severe("Bizarre! " + uee.getLocalizedMessage());
-                RuntimeException e = new IllegalArgumentException("Unknown ASCII encoding!");
-                e.initCause(uee);
-                throw e;
-            }
+            post.setContent(query.getBytes(StandardCharsets.US_ASCII));
             String s = url.toString();
             int q = s.indexOf('?');
             s = s.substring(0, q);
@@ -126,9 +120,9 @@ public class RequestConverter {
             try {
                 HttpUrl url = get.getURL();
                 if (url.getQuery() != null) {
-                    url = new HttpUrl(url.toString() + "&" + query);
+                    url = new HttpUrl(url + "&" + query);
                 } else if (url.getQuery() == null) {
-                    url = new HttpUrl(url.toString() + "?" + query);
+                    url = new HttpUrl(url + "?" + query);
                 }
                 get.setURL(url);
             } catch (MalformedURLException mue) {

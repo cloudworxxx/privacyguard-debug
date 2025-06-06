@@ -13,8 +13,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class FilterThread extends Thread {
     private static final String TAG = FilterThread.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private LinkedBlockingQueue<FilterMsg> toFilter = new LinkedBlockingQueue<>();
-    private MyVpnService vpnService;
+    private final LinkedBlockingQueue<FilterMsg> toFilter = new LinkedBlockingQueue<>();
+    private final MyVpnService vpnService;
     ConnectionMetaData metaData;
 
     public FilterThread(MyVpnService vpnService) {

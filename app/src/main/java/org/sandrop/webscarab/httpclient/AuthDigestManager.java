@@ -139,7 +139,7 @@ public class AuthDigestManager {
      * @return HEX buffer representation.
      */
     private static String bufferToHex(byte[] buffer) {
-        final char hexChars[] =
+        final char[] hexChars =
             { '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f' };
         if (buffer != null) {
             int length = buffer.length;

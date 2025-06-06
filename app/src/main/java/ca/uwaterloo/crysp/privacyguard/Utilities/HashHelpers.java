@@ -1,5 +1,6 @@
 package ca.uwaterloo.crysp.privacyguard.Utilities;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
@@ -25,7 +26,7 @@ public class HashHelpers {
     public static String SHA1(String text, int maxLen) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(text.getBytes("iso-8859-1"), 0, text.length());
+            md.update(text.getBytes(StandardCharsets.ISO_8859_1), 0, text.length());
             byte[] sha1hash = md.digest();
             return convertToHex(sha1hash, maxLen);
         } catch(Exception e) {
@@ -36,7 +37,7 @@ public class HashHelpers {
     public static String SHA2(String text, int maxLen) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(text.getBytes("iso-8859-1"), 0, text.length());
+            md.update(text.getBytes(StandardCharsets.ISO_8859_1), 0, text.length());
             byte[] sha1hash = md.digest();
             return convertToHex(sha1hash, maxLen);
         } catch(Exception e) {
@@ -47,7 +48,7 @@ public class HashHelpers {
     public static String MD5(String text, int maxLen) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(text.getBytes("iso-8859-1"), 0, text.length());
+            md.update(text.getBytes(StandardCharsets.ISO_8859_1), 0, text.length());
             byte[] sha1hash = md.digest();
             return convertToHex(sha1hash, maxLen);
         } catch(Exception e) {

@@ -89,7 +89,7 @@ public abstract class WebSocketProxy {
      */
     public enum State {  
         CONNECTING, OPEN, CLOSING, CLOSED, // ready state
-        EXCLUDED, INCLUDED; // no WebSocket state, used for new black- or whitelisted channels
+        EXCLUDED, INCLUDED // no WebSocket state, used for new black- or whitelisted channels
     }
     
     /**
@@ -144,7 +144,7 @@ public abstract class WebSocketProxy {
     /**
      * List of observers, that are informed of in- or outgoing messages.
      */
-    private Vector<WebSocketObserver> observerList;
+    private final Vector<WebSocketObserver> observerList;
 
 
     /**
@@ -170,7 +170,7 @@ public abstract class WebSocketProxy {
     /**
      * Add a unique id to each message of one view model.
      */
-    private AtomicInteger messageIdGenerator;
+    private final AtomicInteger messageIdGenerator;
 
     /**
      * When true, no observer is called and each frame is forwarded instantly.
@@ -180,7 +180,7 @@ public abstract class WebSocketProxy {
     /**
      * In client mode there is no connection Browser <-> ZAP, but only ZAP <-> Server.
      */
-    private boolean isClientMode;
+    private final boolean isClientMode;
     
     /**
      * Factory method to create appropriate version.
@@ -225,11 +225,7 @@ public abstract class WebSocketProxy {
      * @param remoteSocket Channel from ZAP to remote machine.
      */
     public WebSocketProxy(Socket localSocket, Socket remoteSocket) {
-        if (localSocket == null) {
-            isClientMode = true;
-        } else {
-            isClientMode = false;
-        }
+        isClientMode = localSocket == null;
         
         this.localSocket = localSocket;
         this.remoteSocket = remoteSocket;
@@ -317,7 +313,7 @@ public abstract class WebSocketProxy {
             throw new WebSocketException(e);
         }
         
-        logger.info("Start listeners for channel '" + toString() + "'.");
+        logger.info("Start listeners for channel '" + this + "'.");
         
         try {
             // use existing InputStream for remote socket,
@@ -357,7 +353,7 @@ public abstract class WebSocketProxy {
                 writer = writeSocket.getOutputStream();
             }
 
-            String name = "WS-Listener (" + side + ") '" + toString() + "'";
+            String name = "WS-Listener (" + side + ") '" + this + "'";
             
             return new WebSocketListener(this, reader, writer, name);
         } catch (IOException e) {
@@ -441,10 +437,7 @@ public abstract class WebSocketProxy {
      * @return True if proxy's state is {@link State#OPEN}.
      */
     public boolean isConnected() {
-        if (state != null && state.equals(State.OPEN)) {
-            return true;
-        }
-        return false;
+        return state != null && state.equals(State.OPEN);
     }
 
     /**
@@ -579,13 +572,13 @@ public abstract class WebSocketProxy {
         if (isForwardOnly && !shouldBeForwardOnly) {
             // formerly channel was ignored - maybe the whole time
             // be sure that observers got to know this channel
-            logger.info(toString() + " is re-included in storage & UI!");
+            logger.info(this + " is re-included in storage & UI!");
             
             isForwardOnly = false;
             notifyStateObservers(State.INCLUDED);
         } else if (!isForwardOnly && shouldBeForwardOnly) {
             // current channel is not tracked in future
-            logger.info(toString() + " is excluded from storage & UI!");
+            logger.info(this + " is excluded from storage & UI!");
 
             isForwardOnly = true;
             notifyStateObservers(State.EXCLUDED);

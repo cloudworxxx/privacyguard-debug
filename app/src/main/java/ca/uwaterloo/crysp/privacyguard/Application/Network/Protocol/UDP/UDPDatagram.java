@@ -34,15 +34,14 @@ public class UDPDatagram extends IPPayLoad {
     }
 
     public String debugString() {
-        StringBuffer sb = new StringBuffer("SrcPort=");
-        sb.append(header.getSrcPort());
-        sb.append(" DstPort=");
-        sb.append(header.getDstPort());
-        sb.append(" Total Length=");
-        sb.append(((UDPHeader)header).getTotal_length());
-        sb.append(" Data Length=");
-        sb.append(this.dataLength());
+        String sb = "SrcPort=" + header.getSrcPort() +
+                " DstPort=" +
+                header.getDstPort() +
+                " Total Length=" +
+                ((UDPHeader) header).getTotal_length() +
+                " Data Length=" +
+                this.dataLength();
         //sb.append(" Data=" + ByteOperations.byteArrayToString(this.data));
-        return sb.toString();
+        return sb;
     }
 }

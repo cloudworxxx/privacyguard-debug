@@ -34,13 +34,13 @@ public class LocalServerForwarder extends Thread {
 
     private static final String TAG = LocalServerForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private static int LIMIT = 1368;
+    private static final int LIMIT = 1368;
 
     private boolean outgoing = false;
-    private MyVpnService vpnService;
+    private final MyVpnService vpnService;
     private InputStream in;
     private OutputStream out;
-    private ConnectionMetaData metaData;
+    private final ConnectionMetaData metaData;
 
     public LocalServerForwarder(Socket inSocket, Socket outSocket, boolean isOutgoing, MyVpnService vpnService, String packageName, String appName) {
         try {

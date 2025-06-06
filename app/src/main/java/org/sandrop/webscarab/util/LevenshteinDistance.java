@@ -51,7 +51,7 @@ import java.util.Iterator;
 
 public class LevenshteinDistance<T> {
     
-    private List<T> _baseline;
+    private final List<T> _baseline;
     private int[] _current, _previous;
     
     public LevenshteinDistance(List<T> baseline) {

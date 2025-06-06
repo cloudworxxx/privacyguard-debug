@@ -44,8 +44,8 @@ public class UrlEvent extends EventObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -2563329935372684632L;
-	private HttpUrl _url;
-    private int _position;
+	private final HttpUrl _url;
+    private final int _position;
     
     /** Creates a new instance of UrlEvent */
     public UrlEvent(Object source, HttpUrl url, int position) {

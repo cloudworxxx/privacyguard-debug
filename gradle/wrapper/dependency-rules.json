@@ -1,0 +1,8 @@
+{
+  "deny": [
+    {
+      "group": "com.halfhp.fig",
+      "module": "figlib"
+    }
+  ]
+}

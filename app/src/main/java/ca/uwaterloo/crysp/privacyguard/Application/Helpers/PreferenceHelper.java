@@ -39,7 +39,7 @@ public class PreferenceHelper {
         }
     }
 
-    private static Comparator<AppSummary> INCREASING_ORDER_BY_NUMBER_OF_LEAKS = new Comparator<AppSummary>() {
+    private static final Comparator<AppSummary> INCREASING_ORDER_BY_NUMBER_OF_LEAKS = new Comparator<AppSummary>() {
         @Override
         public int compare(AppSummary lhs, AppSummary rhs) {
             if (lhs.getTotalLeaks() == rhs.getTotalLeaks()) return 0;
@@ -47,7 +47,7 @@ public class PreferenceHelper {
         }
     };
 
-    private static Comparator<AppSummary> DECREASING_ORDER_BY_NUMBER_OF_LEAKS = new Comparator<AppSummary>() {
+    private static final Comparator<AppSummary> DECREASING_ORDER_BY_NUMBER_OF_LEAKS = new Comparator<AppSummary>() {
         @Override
         public int compare(AppSummary lhs, AppSummary rhs) {
             if (lhs.getTotalLeaks() == rhs.getTotalLeaks()) return 0;
@@ -55,7 +55,7 @@ public class PreferenceHelper {
         }
     };
 
-    private static Comparator<AppSummary> ALPHABETICAL_ORDER = new Comparator<AppSummary>() {
+    private static final Comparator<AppSummary> ALPHABETICAL_ORDER = new Comparator<AppSummary>() {
         @Override
         public int compare(AppSummary lhs, AppSummary rhs) {
             return lhs.getAppName().compareTo(rhs.getAppName());

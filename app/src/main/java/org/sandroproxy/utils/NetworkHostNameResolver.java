@@ -29,7 +29,7 @@ import android.util.Log;
 public class NetworkHostNameResolver implements ITransparentProxyResolver{
 
     
-    private Context mContext;
+    private final Context mContext;
     private String mHostName;
     private boolean mListenerStarted = false;
     private Map<Integer, SiteData> siteData;
@@ -38,8 +38,8 @@ public class NetworkHostNameResolver implements ITransparentProxyResolver{
     private HostNameResolver hostNameResolver;
     
     public static String DEFAULT_SITE_NAME = "sandroproxy.untrusted";
-    private static String TAG = NetworkHostNameResolver.class.getSimpleName();
-    private static boolean LOGD = false;
+    private static final String TAG = NetworkHostNameResolver.class.getSimpleName();
+    private static final boolean LOGD = false;
     
     private native String getOriginalDest(Socket socket);
     

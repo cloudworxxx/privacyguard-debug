@@ -7,8 +7,9 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * Created by Near on 15-02-03.
  */
 public class ByteArrayPool {
-  private ConcurrentSkipListSet<ByteArray> unused, used;
-  private int byteArraySize;
+  private final ConcurrentSkipListSet<ByteArray> unused;
+    private final ConcurrentSkipListSet<ByteArray> used;
+  private final int byteArraySize;
   private int total;
 
   public ByteArrayPool(int initSize, int arraySize) {

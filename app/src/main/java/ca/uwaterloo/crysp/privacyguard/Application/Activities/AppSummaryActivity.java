@@ -3,8 +3,8 @@ package ca.uwaterloo.crysp.privacyguard.Application.Activities;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,12 +41,12 @@ public class AppSummaryActivity extends AppCompatActivity {
         appName = intent.getStringExtra(PrivacyGuard.EXTRA_APP_NAME);
         ignore = intent.getIntExtra(PrivacyGuard.EXTRA_IGNORE,0);
 
-        TextView title = (TextView) findViewById(R.id.summary_title);
+        TextView title = findViewById(R.id.summary_title);
         title.setText(appName);
-        TextView subtitle = (TextView) findViewById(R.id.summary_subtitle);
+        TextView subtitle = findViewById(R.id.summary_subtitle);
         subtitle.setText("[" + packageName + "]");
 
-        notificationSwitch = (Switch) findViewById(R.id.summary_switch);
+        notificationSwitch = findViewById(R.id.summary_switch);
         notificationSwitch.setChecked(ignore == 1);
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,7 +64,7 @@ public class AppSummaryActivity extends AppCompatActivity {
             }
         });
 
-        list = (ListView) findViewById(R.id.summary_list);
+        list = findViewById(R.id.summary_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +86,7 @@ public class AppSummaryActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton viewStats = (FloatingActionButton)findViewById(R.id.stats_button);
+        FloatingActionButton viewStats = findViewById(R.id.stats_button);
         viewStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

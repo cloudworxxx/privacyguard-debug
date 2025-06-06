@@ -48,18 +48,18 @@ import org.sandrop.webscarab.model.ConnectionDescriptor;
 
 public class Listener implements Runnable {
     
-    private Proxy _proxy;
-    private ListenerSpec _spec;
+    private final Proxy _proxy;
+    private final ListenerSpec _spec;
     
     private ServerSocket _serversocket = null;
-    private int _socketTimeout = 30000;
+    private final int _socketTimeout = 30000;
 
     private boolean _stop = false;
     private boolean _stopped = true;
     
     private int _count = 1;
     
-    private Logger _logger = Logger.getLogger(this.getClass().getName());
+    private final Logger _logger = Logger.getLogger(this.getClass().getName());
     
     /** Creates a new instance of Listener */
     public Listener(Proxy proxy, ListenerSpec spec) {
@@ -101,7 +101,7 @@ public class Listener implements Runnable {
                 ch = new ConnectionHandler(_proxy, sock, _spec.getBase(), _spec.isTransparentProxy(), _spec.isTransparentProxySecure(),
                                            _spec.mustCaptureData(), _spec.useFakeCerts(), _spec.storeSslAsPcap(),
                                            _proxy.getTransparentProxyResolver(), connectionDescriptor);
-                thread = new Thread(ch, Thread.currentThread().getName()+"-"+Integer.toString(_count++));
+                thread = new Thread(ch, Thread.currentThread().getName()+"-"+ _count++);
                 thread.setName(threadName);
                 thread.setDaemon(true);
                 thread.start();

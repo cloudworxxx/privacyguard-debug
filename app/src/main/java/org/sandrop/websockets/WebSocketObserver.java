@@ -58,8 +58,8 @@ import org.sandrop.websockets.WebSocketProxy.State;
  * {@link WebSocketProxy#addObserver(WebSocketObserver)}. Alternatively you can
  * set up your observer for all channels, that come into existence in the
  * future. Call either
- * {@link ExtensionWebSocket#addAllChannelObserver(WebSocketObserver)} direct or
- * use {@link ExtensionHook#addWebSocketObserver(WebSocketObserver)}.
+ *  direct or
+ * use .
  * </p>
  */
 public interface WebSocketObserver {

@@ -44,7 +44,7 @@ import java.io.PrintStream;
  */
 
 public class LogInputStream extends FilterInputStream {
-    private PrintStream _ps;
+    private final PrintStream _ps;
     
     /**
      * This class can be used to keep a copy of the bytes read from the supplied

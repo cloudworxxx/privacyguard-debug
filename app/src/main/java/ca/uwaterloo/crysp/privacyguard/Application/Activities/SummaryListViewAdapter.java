@@ -55,10 +55,10 @@ public class SummaryListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.listview_summary, null);
             holder = new ViewHolder();
 
-            holder.category = (TextView)convertView.findViewById(R.id.summary_category);
-            holder.count = (TextView)convertView.findViewById(R.id.summary_count);
-            holder.ignore = (TextView)convertView.findViewById(R.id.summary_ignore);
-            holder.countString = (TextView)convertView.findViewById(R.id.summary_count_string);
+            holder.category = convertView.findViewById(R.id.summary_category);
+            holder.count = convertView.findViewById(R.id.summary_count);
+            holder.ignore = convertView.findViewById(R.id.summary_ignore);
+            holder.countString = convertView.findViewById(R.id.summary_count_string);
 
             convertView.setTag(holder);
         } else {

@@ -45,14 +45,14 @@ import netutils.parse.TCPPacket;
 
 public class PcapWriter {
     
-    private static String TAG = PcapWriter.class.getSimpleName();
-    private static boolean LOGD = false;
+    private static final String TAG = PcapWriter.class.getSimpleName();
+    private static final boolean LOGD = false;
     private static PCapFileWriter pcapFileWriterAll;
-    private PCapFileWriter pcapFileWriter;
-    private IPv4Address clientAddress;
-    private IPv4Address serverAddress;
-    private int clientPort;
-    private int serverPort;
+    private final PCapFileWriter pcapFileWriter;
+    private final IPv4Address clientAddress;
+    private final IPv4Address serverAddress;
+    private final int clientPort;
+    private final int serverPort;
     private long sequenceNumber;
     
     public static void init(String fileName) throws IOException{

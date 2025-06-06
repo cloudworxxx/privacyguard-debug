@@ -5,7 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,33 +66,33 @@ public class LeakSummaryFragment extends Fragment {
 
         double total = allLeaks.size();
 
-        TextView locationPercentage = (TextView)view.findViewById(R.id.location_percentage);
+        TextView locationPercentage = view.findViewById(R.id.location_percentage);
         locationPercentage.setText(getStringPercentage(locationLeaks.size(), total));
 
-        TextView contactPercentage = (TextView)view.findViewById(R.id.contact_percentage);
+        TextView contactPercentage = view.findViewById(R.id.contact_percentage);
         contactPercentage.setText(getStringPercentage(contactLeaks.size(), total));
 
-        TextView devicePercentage = (TextView)view.findViewById(R.id.device_percentage);
+        TextView devicePercentage = view.findViewById(R.id.device_percentage);
         devicePercentage.setText(getStringPercentage(deviceLeaks.size(), total));
 
-        TextView keywordPercentage = (TextView)view.findViewById(R.id.keyword_percentage);
+        TextView keywordPercentage = view.findViewById(R.id.keyword_percentage);
         keywordPercentage.setText(getStringPercentage(keywordLeaks.size(), total));
 
-        TextView foregroundPercentage = (TextView)view.findViewById(R.id.foreground_percentage);
+        TextView foregroundPercentage = view.findViewById(R.id.foreground_percentage);
         foregroundPercentage.setText(getStringPercentage(foreground, total));
 
-        TextView backgroundPercentage = (TextView)view.findViewById(R.id.background_percentage);
+        TextView backgroundPercentage = view.findViewById(R.id.background_percentage);
         backgroundPercentage.setText(getStringPercentage(background, total));
 
         PackageManager pm = getContext().getPackageManager();
-        ImageView appIcon = (ImageView)view.findViewById(R.id.app_icon);
+        ImageView appIcon = view.findViewById(R.id.app_icon);
         try {
             appIcon.setImageDrawable(pm.getApplicationIcon(activity.getAppPackageName()));
         } catch (PackageManager.NameNotFoundException e) {
             appIcon.setImageResource(R.drawable.default_icon);
         }
 
-        TextView appNameText = (TextView)view.findViewById(R.id.app_name);
+        TextView appNameText = view.findViewById(R.id.app_name);
         appNameText.setText(activity.getAppName());
 
         Segment locationSegment = null;
@@ -104,8 +104,8 @@ public class LeakSummaryFragment extends Fragment {
         Segment backgroundSegment = null;
         Segment unspecifiedSegment = null;
 
-        PieChart categoryPieChart = (PieChart) view.findViewById(R.id.category_pie_chart);
-        PieChart foregroundPieChart = (PieChart) view.findViewById(R.id.foreground_pie_chart);
+        PieChart categoryPieChart = view.findViewById(R.id.category_pie_chart);
+        PieChart foregroundPieChart = view.findViewById(R.id.foreground_pie_chart);
 
         if (locationLeaks.size() > 0) locationSegment = new Segment("", locationLeaks.size());
         if (contactLeaks.size() > 0) contactSegment = new Segment("", contactLeaks.size());
@@ -172,6 +172,6 @@ public class LeakSummaryFragment extends Fragment {
     }
 
     private String getStringPercentage(int size, double total) {
-        return String.valueOf((int)Math.round(size*100/total)) + "%";
+        return (int) Math.round(size * 100 / total) + "%";
     }
 }

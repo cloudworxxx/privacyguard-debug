@@ -25,5 +25,5 @@ import ca.uwaterloo.crysp.privacyguard.Application.Network.Protocol.IP.IPPayLoad
  * Created by frank on 2014-03-27.
  */
 public interface ICommunication {
-  public void send(IPPayLoad payload);
+  void send(IPPayLoad payload);
 }

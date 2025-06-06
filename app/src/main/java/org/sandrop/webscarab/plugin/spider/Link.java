@@ -40,8 +40,8 @@ import org.sandrop.webscarab.model.HttpUrl;
  */
 public class Link {
     
-    private HttpUrl _url;
-    private String _referer;
+    private final HttpUrl _url;
+    private final String _referer;
     
     /** Creates a new instance of Link */
     public Link(HttpUrl url, String referer) {

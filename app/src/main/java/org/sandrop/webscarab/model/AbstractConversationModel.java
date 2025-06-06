@@ -45,11 +45,11 @@ import org.sandrop.webscarab.util.EventListenerList;
  */
 public abstract class AbstractConversationModel implements ConversationModel {
     
-    private FrameworkModel _model;
+    private final FrameworkModel _model;
     
-    private EventListenerList _listenerList = new EventListenerList();
+    private final EventListenerList _listenerList = new EventListenerList();
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of AbstractConversationModel */
     public AbstractConversationModel(FrameworkModel model) {
@@ -167,7 +167,6 @@ public abstract class AbstractConversationModel implements ConversationModel {
     /**
      * fired to tell listeners that a particular conversation has had a property change
      * @param id the conversation
-     * @param property the name of the property that was changed
      */
     protected void fireConversationChanged(ConversationID id, int position) {
         // Guaranteed to return a non-null array
@@ -188,8 +187,6 @@ public abstract class AbstractConversationModel implements ConversationModel {
     
     /**
      * fired to tell listeners that a particular conversation has had a property change
-     * @param id the conversation
-     * @param property the name of the property that was changed
      */
     protected void fireConversationsChanged() {
         // Guaranteed to return a non-null array

@@ -96,7 +96,7 @@ public class SSLSocketFactoryFactory {
     private static final long DEFAULT_VALIDITY = 10L * 365L * 24L * 60L * 60L
             * 1000L;
 
-    private static Logger _logger = Logger
+    private static final Logger _logger = Logger
             .getLogger(SSLSocketFactoryFactory.class.getName());
 
     private static final String CA = "CA";
@@ -122,20 +122,20 @@ public class SSLSocketFactoryFactory {
 
     private X509Certificate[] caCerts;
 
-    private String filenameCA;
-    private String filenameCert;
+    private final String filenameCA;
+    private final String filenameCert;
 
     private KeyStore keystoreCert;
-    private KeyStore keystoreCA;
+    private final KeyStore keystoreCA;
 
-    private char[] passwordCA;
-    private char[] passwordCerts;
+    private final char[] passwordCA;
+    private final char[] passwordCerts;
 
     private boolean reuseKeys = false;
 
-    private Map<String, SSLContext> contextCache = new HashMap<String, SSLContext>();
+    private final Map<String, SSLContext> contextCache = new HashMap<String, SSLContext>();
 
-    private Set<BigInteger> serials = new HashSet<BigInteger>();
+    private final Set<BigInteger> serials = new HashSet<BigInteger>();
 
     public SSLSocketFactoryFactory(String fileNameCA, String fileNameCert, String type,
             char[] password)
@@ -252,7 +252,7 @@ public class SSLSocketFactoryFactory {
     public synchronized SSLSocketFactory getSocketFactory(SiteData hostData)
             throws IOException, GeneralSecurityException {
     	String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort: hostData.name;
-        SSLContext sslContext = (SSLContext) contextCache.get(certEntry);
+        SSLContext sslContext = contextCache.get(certEntry);
         if (sslContext == null) {
             X509KeyManager km;
             //_logger.finest("don't have an SSL context");
@@ -374,7 +374,7 @@ public class SSLSocketFactoryFactory {
     private void initSerials() throws GeneralSecurityException {
         Enumeration<String> e = keystoreCert.aliases();
         while (e.hasMoreElements()) {
-            String alias = (String) e.nextElement();
+            String alias = e.nextElement();
             X509Certificate cert = (X509Certificate) keystoreCert
                     .getCertificate(alias);
             BigInteger serial = cert.getSerialNumber();
@@ -428,7 +428,7 @@ public class SSLSocketFactoryFactory {
                 final int SUBALTNAME_DNSNAME = 2;
                 DEREncodableVector derVector = new ASN1EncodableVector();
                 while (iter.hasNext()) {
-                    List<?> next = (List<?>) iter.next();
+                    List<?> next = iter.next();
                     int OID = ((Integer) next.get(0)).intValue();
                     switch (OID) {
                         case SUBALTNAME_DNSNAME:
@@ -466,11 +466,11 @@ public class SSLSocketFactoryFactory {
 
     private class HostKeyManager implements X509KeyManager {
 
-        private SiteData hostData;
+        private final SiteData hostData;
 
-        private PrivateKey pk;
+        private final PrivateKey pk;
 
-        private X509Certificate[] certs;
+        private final X509Certificate[] certs;
 
         public HostKeyManager(SiteData hostData, PrivateKey pk,
                 X509Certificate[] certs) {

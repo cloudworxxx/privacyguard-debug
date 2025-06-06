@@ -27,12 +27,13 @@ import java.util.regex.Matcher;
 
 /**
  * Created by MAK on 03/11/2015.
+ * @noinspection ALL
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "dataLeaksManager";
-    private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.CANADA);
-    private SQLiteDatabase mDB;
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.CANADA);
+    private final SQLiteDatabase mDB;
     public static final String LEAK_ID_KEY = "leak_id_key";
     private static final boolean DEBUG = false;
 

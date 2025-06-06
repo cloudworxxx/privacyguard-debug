@@ -47,7 +47,7 @@ import java.util.Iterator;
  */
 public class ReentrantReaderPreferenceReadWriteLock extends ReentrantWriterPreferenceReadWriteLock {
     
-    private Sync _writeLock;
+    private final Sync _writeLock;
     
     /** Creates a new instance of ReentrantReaderPreferenceReadWriteLock */
     public ReentrantReaderPreferenceReadWriteLock() {
@@ -89,7 +89,7 @@ public class ReentrantReaderPreferenceReadWriteLock extends ReentrantWriterPrefe
     
     private class LoggingLock implements Sync {
         
-        private Sync _sync;
+        private final Sync _sync;
         
         public LoggingLock(Sync sync) {
             _sync = sync;

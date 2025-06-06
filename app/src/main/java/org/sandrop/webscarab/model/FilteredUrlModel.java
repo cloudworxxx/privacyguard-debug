@@ -54,7 +54,7 @@ public abstract class FilteredUrlModel extends AbstractUrlModel {
     private Set _filteredUrls = null;
     private Set _implicitUrls = null;
     
-    private MRUCache _cache = new MRUCache(16);
+    private final MRUCache _cache = new MRUCache(16);
     
     protected EventListenerList _listenerList = new EventListenerList();
     
@@ -74,8 +74,6 @@ public abstract class FilteredUrlModel extends AbstractUrlModel {
             _urlModel.addUrlListener(new Listener());
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            //_urlModel.readLock().release();
         }
     }
     
@@ -153,8 +151,6 @@ public abstract class FilteredUrlModel extends AbstractUrlModel {
             return childList;
         } catch (Exception ie) {
             _logger.warning("Interrupted waiting for the read lock! " + ie.getMessage());
-        } finally {
-            // _urlModel.readLock().release();
         }
         return null;
     }

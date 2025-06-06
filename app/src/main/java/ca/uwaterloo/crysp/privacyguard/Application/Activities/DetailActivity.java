@@ -3,7 +3,7 @@ package ca.uwaterloo.crysp.privacyguard.Application.Activities;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -47,13 +47,13 @@ public class DetailActivity extends AppCompatActivity {
         category = intent.getStringExtra(PrivacyGuard.EXTRA_CATEGORY);
         ignore = intent.getIntExtra(PrivacyGuard.EXTRA_IGNORE, 0);
 
-        TextView title = (TextView) findViewById(R.id.detail_title);
+        TextView title = findViewById(R.id.detail_title);
         title.setText(category);
-        TextView subtitle = (TextView) findViewById(R.id.detail_subtitle);
+        TextView subtitle = findViewById(R.id.detail_subtitle);
         subtitle.setText("[" + appName + "]");
 
 
-        notificationSwitch = (Switch) findViewById(R.id.detail_switch);
+        notificationSwitch = findViewById(R.id.detail_switch);
         notificationSwitch.setChecked(ignore == 1);
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -71,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        list = (ListView) findViewById(R.id.detail_list);
+        list = findViewById(R.id.detail_list);
     }
 
     @Override

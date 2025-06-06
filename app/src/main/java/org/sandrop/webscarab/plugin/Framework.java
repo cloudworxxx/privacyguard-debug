@@ -59,28 +59,28 @@ import android.content.Context;
 
 public class Framework {
     
-    private ArrayList<Plugin> _plugins = new ArrayList<Plugin>();
+    private final ArrayList<Plugin> _plugins = new ArrayList<Plugin>();
     private final QueuedExecutor analysisQueuedExecutor;
     private final QueuedExecutor analysisLongRunningQueuedExecutor;
     
-    private FrameworkModel _model;
-    private FrameworkModelWrapper _wrapper;
+    private final FrameworkModel _model;
+    private final FrameworkModelWrapper _wrapper;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     private String _version;
     
     private ScriptManager _scriptManager;
-    private CredentialManager _credentialManager;
+    private final CredentialManager _credentialManager;
     
-    private AddConversationHook _allowAddConversation;
+    private final AddConversationHook _allowAddConversation;
     
-    private AnalyseConversationHook _analyseConversation;
+    private final AnalyseConversationHook _analyseConversation;
     
     private Pattern dropPattern = null;
     private Pattern whitelistPattern = null;
     
-    private Context mContext;
+    private final Context mContext;
     
     private boolean _captureData = false;
     
@@ -127,13 +127,13 @@ public class Framework {
         try {
             setDropPattern(dropRegex);
         } catch (PatternSyntaxException pse) {
-            _logger.warning("Got an invalid regular expression for conversations to ignore: " + dropRegex + " results in " + pse.toString());
+            _logger.warning("Got an invalid regular expression for conversations to ignore: " + dropRegex + " results in " + pse);
         }
         String whitelistRegex = Preferences.getPreference(PreferenceUtils.dataCaptureWhiteListRegEx, null);
         try {
             setWhitelistPattern(whitelistRegex);
         } catch (PatternSyntaxException pse) {
-            _logger.warning("Got an invalid regular expression for conversations to whitelist: " + whitelistRegex + " results in " + pse.toString());
+            _logger.warning("Got an invalid regular expression for conversations to whitelist: " + whitelistRegex + " results in " + pse);
         }
          this.analysisQueuedExecutor = new QueuedExecutor();
         this.analysisQueuedExecutor.setThreadFactory(new QueueProcessorThreadFactory("QueueProcessor"));
@@ -168,7 +168,7 @@ public class Framework {
             String strPort = Preferences.getPreference("preference_proxy_port", "8008");
             return Integer.parseInt(strPort);
         }catch (Exception ex){
-            _logger.warning("Error parsing port. Set to" + String.valueOf(defaultValue) + " :" + ex.getMessage());
+            _logger.warning("Error parsing port. Set to" + defaultValue + " :" + ex.getMessage());
             return defaultValue;
         }
         
@@ -184,7 +184,7 @@ public class Framework {
                 List<String> nonLocalAdresses = NetworkUtils.getLocalIpAddress();
                 for (Iterator<String> iterator = nonLocalAdresses.iterator(); iterator
                         .hasNext();) {
-                    String adress = (String) iterator.next();
+                    String adress = iterator.next();
                     listeners.add(adress + ":" + strPort);
                 }
             }
@@ -623,7 +623,7 @@ public class Framework {
                     while (it.hasNext()) {
                 Plugin plugin = it.next();
                 if (this.longRunning) {
-                    if (false == plugin instanceof Fragments) {
+                    if (!(plugin instanceof Fragments)) {
                         continue;
                     }
                     _logger.info("running long running analysis: " + plugin.getPluginName());

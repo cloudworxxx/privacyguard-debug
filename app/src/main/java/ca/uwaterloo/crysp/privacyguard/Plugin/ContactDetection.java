@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.provider.ContactsContract;
 
 import ca.uwaterloo.crysp.privacyguard.Application.Logger;

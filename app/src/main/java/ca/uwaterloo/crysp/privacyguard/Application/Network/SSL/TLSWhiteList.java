@@ -17,11 +17,11 @@ import ca.uwaterloo.crysp.privacyguard.Application.Logger;
 public class TLSWhiteList {
     /* number of consecutive failed SSL interception attempts we need to see until we decide that a site uses
        SSL pinning */
-    private static int MAX_FAIL = 2;
+    private static final int MAX_FAIL = 2;
 
     /* likelihood used to remove a site from the set of suspected SSL pinning sites to give SSL
        interception another chance  */
-    private static int REMOVE_RATE = 10;
+    private static final int REMOVE_RATE = 10;
 
     private static final boolean DEBUG = false;
     private static final String TAG = TLSWhiteList.class.getSimpleName();
@@ -34,8 +34,8 @@ public class TLSWhiteList {
 
     // list of apps for which TLS connection can set up but then there's a failure, likely
     // due to certificate pinning at the application layer
-    private Set<String> manualList;
-    private Random rand = new Random();
+    private final Set<String> manualList;
+    private final Random rand = new Random();
 
     public TLSWhiteList(File directory, String file){
         automaticList = new HashMap<String, Integer>();

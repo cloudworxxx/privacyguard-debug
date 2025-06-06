@@ -54,11 +54,11 @@ import bsh.TargetError;
 
 public class BeanShell extends ProxyPlugin {
     
-    private Logger _logger = Logger.getLogger(this.getClass().getName());
+    private final Logger _logger = Logger.getLogger(this.getClass().getName());
     
     private String _scriptFile = "";
     private String _beanScript;
-    private String _defaultScript =
+    private final String _defaultScript =
     "/* Please read the JavaDoc and/or the source to understand what methods are available */\n" +
     "\n" +
     "import org.sandrop.webscarab.model.Request;\n" +
@@ -118,7 +118,7 @@ public class BeanShell extends ProxyPlugin {
     }
     
     public String getPluginName() {
-        return new String("Bean Shell");
+        return "Bean Shell";
     }
     
     public void setEnabled(boolean bool) {
@@ -181,7 +181,7 @@ public class BeanShell extends ProxyPlugin {
     
     private class Plugin implements HTTPClient {
         
-        private HTTPClient _in;
+        private final HTTPClient _in;
         
         public Plugin(HTTPClient in) {
             _in = in;
@@ -212,7 +212,7 @@ public class BeanShell extends ProxyPlugin {
                     }
                 } catch (EvalError e) {
                     System.err.println("e is a " + e.getClass());
-                    if (_ui != null) _ui.getErr().println(e.toString());
+                    if (_ui != null) _ui.getErr().println(e);
                     throw new IOException("Error evaluating bean script : " + e);
                 }
             } else {

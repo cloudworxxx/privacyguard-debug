@@ -37,11 +37,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.security.KeyChain;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -72,9 +72,9 @@ import javax.security.cert.CertificateEncodingException;
 @TargetApi(22)
 public class MainActivity extends AppCompatActivity {
 
-    private static String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
-    private static float DISABLED_ALPHA = 0.3f;
+    private static final float DISABLED_ALPHA = 0.3f;
 
     private ListView listLeak;
     private MainListViewAdapter adapter;
@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
         onIndicator = findViewById(R.id.on_indicator);
         offIndicator = findViewById(R.id.off_indicator);
         loadingIndicator = findViewById(R.id.loading_indicator);
-        listLeak = (ListView)findViewById(R.id.leaksList);
-        vpnToggle = (FloatingActionButton)findViewById(R.id.on_off_button);
+        listLeak = findViewById(R.id.leaksList);
+        vpnToggle = findViewById(R.id.on_off_button);
 
         CertificateManager.initiateFactory(MyVpnService.CADir, MyVpnService.CAName, MyVpnService.CertName, MyVpnService.KeyType, MyVpnService.Password.toCharArray());
 
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        statsButton = (FloatingActionButton)findViewById(R.id.stats_button);
+        statsButton = findViewById(R.id.stats_button);
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Button permissionButton = (Button)findViewById(R.id.turn_on_permission_button);
+        Button permissionButton = findViewById(R.id.turn_on_permission_button);
         permissionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button usageStatsButton = (Button)findViewById(R.id.turn_on_usage_stats_button);
+        Button usageStatsButton = findViewById(R.id.turn_on_usage_stats_button);
         usageStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,18 +303,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu); // Убедитесь, что R.menu.main_menu совпадает с вашим файлом
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.settings:
-                Intent i = new Intent(this, MyPreferencesActivity.class);
-                startActivity(i);
-                return true;
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            // код для настроек
+            return true;
+        } else if (id == R.id.about) {
+            // код для "О программе"
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -396,6 +397,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int request, int result, Intent data) {
+        super.onActivityResult(request, result, data);
         if (request == ActivityRequestCodes.REQUEST_CERT) {
             boolean keyChainInstalled = result == RESULT_OK;
             if (keyChainInstalled) {
@@ -521,7 +523,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         String permission = null;
 
         switch (requestCode) {

@@ -31,7 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class TunWriteThread extends Thread {
     private final FileOutputStream localOut;
-    private LinkedBlockingQueue<byte[]> writeQueue = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<byte[]> writeQueue = new LinkedBlockingQueue<>();
 
     public TunWriteThread(FileDescriptor fd, MyVpnService vpnService) {
         localOut = new FileOutputStream(fd);

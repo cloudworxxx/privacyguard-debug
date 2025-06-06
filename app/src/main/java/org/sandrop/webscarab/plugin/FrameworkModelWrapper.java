@@ -43,7 +43,7 @@ import org.sandrop.webscarab.model.Response;
 
 public class FrameworkModelWrapper {
 
-    private FrameworkModel _frameworkModel;
+    private final FrameworkModel _frameworkModel;
     
     public FrameworkModelWrapper(FrameworkModel frameworkModel) {
         this._frameworkModel = frameworkModel;

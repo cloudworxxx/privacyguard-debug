@@ -38,10 +38,10 @@ import org.sandrop.webscarab.model.Response;
 
 public class ScriptableConversation {
     
-	private ConversationID _id;
-    private Request _request;
-    private Response _response;
-    private String _origin;
+	private final ConversationID _id;
+    private final Request _request;
+    private final Response _response;
+    private final String _origin;
     
     private boolean _cancelled = false;
     private boolean _analyse = true;

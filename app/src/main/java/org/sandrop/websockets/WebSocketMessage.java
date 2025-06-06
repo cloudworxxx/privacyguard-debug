@@ -73,13 +73,13 @@ public abstract class WebSocketMessage {
 	/**
 	 * A message belongs to one connection.
 	 */
-	private WebSocketProxy proxy;
+	private final WebSocketProxy proxy;
 	
 	/**
 	 * Consecutive number identifying a {@link WebSocketMessage}. Unique within
 	 * a {@link WebSocketProxy}.
 	 */
-	private int messageId;
+	private final int messageId;
 	
 	/**
 	 * This buffer will contain the whole payload, unmasked
@@ -304,12 +304,8 @@ public abstract class WebSocketMessage {
 	 * @return Returns true if given opcode represents a control message.
 	 */
 	public static final boolean isControl(int opcode) {
-		if (opcode >= 0x8 && opcode <= 0xF) {
-			return true;
-		}
-		
-		return false;
-	}
+        return opcode >= 0x8 && opcode <= 0xF;
+    }
 
 	/**
 	 * Returns true if all frames for this message were already
@@ -485,7 +481,7 @@ public abstract class WebSocketMessage {
 			}
 		}
 		
-		dto.isOutgoing = (getDirection() == Direction.OUTGOING) ? true : false;
+		dto.isOutgoing = getDirection() == Direction.OUTGOING;
 		
 		dto.payloadLength = getPayloadLength();
 		

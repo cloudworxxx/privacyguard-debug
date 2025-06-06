@@ -5,13 +5,23 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:8.2.0'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }  // Популярный для кастомных библиотек
+        maven { url 'https://repo1.maven.org/maven2' }  // Старый Maven Central
+    }
+}
+configurations.all {
+    resolutionStrategy {
+        dependencySubstitution {
+            substitute module('com.halfhp.fig:figlib') with module('com.example:empty:1.0')  // Фиктивная библиотека
+        }
     }
 }

@@ -6,12 +6,12 @@ package ca.uwaterloo.crysp.privacyguard.Application.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 
@@ -60,23 +60,22 @@ public abstract class DataActivity extends AppCompatActivity implements AppDataI
 
         trafficFragment = new TrafficFragment();
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager(), this));
         viewPager.setOffscreenPageLimit(TAB_COUNT - 1);
 
-        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.app_data_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu); // Убедитесь, что R.menu.main_menu совпадает с вашим файлом
+        return true;
     }
 
     public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = new String[] { "Report", "Summary", "Query", "Traffic"};
+        private final String[] tabTitles = new String[] { "Report", "Summary", "Query", "Traffic"};
 
         public CustomFragmentPagerAdapter(FragmentManager fm, Context context) {
             super(fm);

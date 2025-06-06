@@ -47,9 +47,9 @@ import org.sandrop.webscarab.util.Encoding;
 public class CredentialManager implements Authenticator {
     
     // contains Maps per host, indexed by Realm
-    private Map<String, Map<String, BasicCredential>> _basicCredentials = new TreeMap<String, Map<String, BasicCredential>>();
-    private Map<String, Map<String, DigestCredential>> _digestCredentials = new TreeMap<String, Map<String, DigestCredential>>();
-    private Map<String, DomainCredential> _domainCredentials = new TreeMap<String, DomainCredential>();
+    private final Map<String, Map<String, BasicCredential>> _basicCredentials = new TreeMap<String, Map<String, BasicCredential>>();
+    private final Map<String, Map<String, DigestCredential>> _digestCredentials = new TreeMap<String, Map<String, DigestCredential>>();
+    private final Map<String, DomainCredential> _domainCredentials = new TreeMap<String, DomainCredential>();
     
     private CredentialManagerUI _ui = null;
     
@@ -158,7 +158,7 @@ public class CredentialManager implements Authenticator {
     }
     
     public int getDomainCredentialCount() {
-        return _domainCredentials.entrySet().size();
+        return _domainCredentials.size();
     }
     
     public DomainCredential getDomainCredentialAt(int index) {
@@ -166,7 +166,7 @@ public class CredentialManager implements Authenticator {
         Iterator<String> hosts = _domainCredentials.keySet().iterator();
         while (hosts.hasNext())
             all.add(_domainCredentials.get(hosts.next()));
-        return (DomainCredential) all.toArray(new DomainCredential[0])[index];
+        return all.toArray(new DomainCredential[0])[index];
     }
     
     public void deleteDomainCredentialAt(int index) {
@@ -189,7 +189,7 @@ public class CredentialManager implements Authenticator {
             while (realm.hasNext())
                 all.add(realms.get(realm.next()));
         }
-        return (BasicCredential[]) all.toArray(new BasicCredential[0]);
+        return all.toArray(new BasicCredential[0]);
     }
     
     private String getPreferredCredentials(String host, String[] challenges) {
@@ -240,7 +240,7 @@ public class CredentialManager implements Authenticator {
         String authParameters = challenge.substring(i + 1);
         String realm = null;
         String[] params = authParameters.split(",");
-        if (params != null && params.length > 0){
+        if (params != null){
             for (String param : params) {
                 if (param != null){
                     String[] paramParts = param.split("=");

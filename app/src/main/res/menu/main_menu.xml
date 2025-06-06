@@ -6,4 +6,7 @@
         app:showAsAction="never"
         android:orderInCategory="1"
         android:title="@string/settings"/>
+    <item
+        android:id="@+id/about"
+        android:title="About" />
 </menu>

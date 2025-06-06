@@ -170,10 +170,7 @@ public class PreferenceUtils {
     
     
     public static boolean IsDirWritable(File dir){
-        if (dir != null && dir.exists() && dir.isDirectory() && dir.canWrite()){
-            return true;
-        }
-        return false;
+        return dir != null && dir.exists() && dir.isDirectory() && dir.canWrite();
     }
     
     public static boolean isChainProxySelected(Context context){

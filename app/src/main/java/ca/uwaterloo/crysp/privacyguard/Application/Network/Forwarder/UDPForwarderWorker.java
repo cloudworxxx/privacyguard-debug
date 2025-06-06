@@ -23,11 +23,11 @@ public class UDPForwarderWorker extends Thread {
     private static final String TAG = UDPForwarderWorker.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final int LIMIT = 32767;
-    private UDPForwarder forwarder;
-    private IPHeader newIPHeader;
-    private UDPHeader newUDPHeader;
+    private final UDPForwarder forwarder;
+    private final IPHeader newIPHeader;
+    private final UDPHeader newUDPHeader;
     private int srcPort;
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
 
     // ipDatagram is a request UDP packet that is going to be put into socket by forwarder
     // this thread will wait for responses to this request (or later request UDP packets sent from same source port)
@@ -69,10 +69,8 @@ public class UDPForwarderWorker extends Thread {
             }
         } catch (SocketException e) {
             // receive() got interrupted
-            return;
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
     }
 }

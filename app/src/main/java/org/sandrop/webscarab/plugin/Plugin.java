@@ -46,7 +46,6 @@ public interface Plugin extends Runnable {
     
     /**
      * informs the plugin that the Session has changed
-     * @param model the new model
      */    
     void setSession(String type, Object store, String session) throws StoreException;
     

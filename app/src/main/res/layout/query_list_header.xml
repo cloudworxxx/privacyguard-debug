@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -18,7 +19,7 @@
             android:id="@+id/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/app_icon"
@@ -26,7 +27,7 @@
             android:layout_height="30dp"
             android:scaleType="centerInside"
             android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginStart="4dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/spinner_category"
-            android:textSize="@dimen/query_tab_text_size"/>
+            android:textSize="@dimen/query_tab_text_size" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -51,7 +52,7 @@
             <Spinner
                 android:id="@+id/spinner_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -66,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/spinner_status"
-            android:textSize="@dimen/query_tab_text_size"/>
+            android:textSize="@dimen/query_tab_text_size" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -77,7 +78,7 @@
             <Spinner
                 android:id="@+id/spinner_status"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -87,12 +88,13 @@
         android:orientation="horizontal"
         android:layout_margin="10dp"
         android:gravity="center">
+
         <TextView
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="@string/start_date"
-            android:textSize="@dimen/query_tab_text_size"/>
+            android:textSize="@dimen/query_tab_text_size" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -105,7 +107,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
-                android:id="@+id/start_date"/>
+                android:id="@+id/start_date" />
 
             <ImageView
                 android:id="@+id/start_date_calendar"
@@ -114,7 +116,7 @@
                 android:layout_alignParentRight="true"
                 android:src="@drawable/calendar"
                 android:tint="@color/white"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -130,7 +132,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="@string/end_date"
-            android:textSize="@dimen/query_tab_text_size"/>
+            android:textSize="@dimen/query_tab_text_size" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -143,7 +145,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
-                android:id="@+id/end_date"/>
+                android:id="@+id/end_date" />
 
             <ImageView
                 android:id="@+id/end_date_calendar"
@@ -151,8 +153,8 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/calendar"
-                android:tint="@color/white"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                app:tint="@color/white" />
         </RelativeLayout>
     </LinearLayout>
 

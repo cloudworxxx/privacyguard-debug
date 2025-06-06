@@ -49,7 +49,7 @@ import java.util.logging.Logger;
  */
 public class HTMLParser implements ContentParser {
     
-    private Logger _logger = Logger.getLogger(this.getClass().getName());
+    private final Logger _logger = Logger.getLogger(this.getClass().getName());
     
     /** Creates a new instance of HTMLParser */
     public HTMLParser() {

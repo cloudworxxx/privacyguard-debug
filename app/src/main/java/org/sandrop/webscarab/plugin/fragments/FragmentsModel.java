@@ -69,7 +69,7 @@ public class FragmentsModel extends AbstractPluginModel {
     public static String KEY_HIDDENFIELD = "HIDDENFIELD";
     public static String KEY_DOMXSS = "DOMXSS";
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     // sandrop
     // private EventListenerList _listenerList = new EventListenerList();
@@ -255,7 +255,7 @@ public class FragmentsModel extends AbstractPluginModel {
         
         private String _type = null;
         private String _key = null;
-        private ArrayList<ConversationID> _conversationList = new ArrayList<ConversationID>();
+        private final ArrayList<ConversationID> _conversationList = new ArrayList<ConversationID>();
         
         public FragmentConversationModel(FrameworkModel model) {
             super(model);

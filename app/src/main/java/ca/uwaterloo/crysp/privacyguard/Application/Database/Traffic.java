@@ -5,11 +5,11 @@ package ca.uwaterloo.crysp.privacyguard.Application.Database;
  */
 
 public class Traffic {
-    private String appName;
-    private String destIP;
-    private boolean encrypted;
-    private int size;
-    private boolean outgoing;
+    private final String appName;
+    private final String destIP;
+    private final boolean encrypted;
+    private final int size;
+    private final boolean outgoing;
 
     public Traffic(String appName, String destIP, boolean encrypted, int size, boolean outgoing){
         this.appName = appName;

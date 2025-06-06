@@ -158,7 +158,7 @@ public interface SiteModelStore {
      * @param url the url
      * @return the number of children of the supplied url.
      */
-    public int getChildCount(HttpUrl url);
+    int getChildCount(HttpUrl url);
     
     /**
      * returns the specified child of the URL passed.
@@ -166,9 +166,9 @@ public interface SiteModelStore {
      * @param index the index
      * @return the child at position index.
      */
-    public HttpUrl getChildAt(HttpUrl url, int index);
+    HttpUrl getChildAt(HttpUrl url, int index);
     
-    public int getIndexOf(HttpUrl url);
+    int getIndexOf(HttpUrl url);
     
     /**
      * writes a specific Request instance to long-term storage.

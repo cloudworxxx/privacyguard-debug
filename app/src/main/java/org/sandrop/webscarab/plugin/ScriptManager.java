@@ -51,10 +51,10 @@ import org.sandrop.webscarab.util.EventListenerList;
 public class ScriptManager {
     
     private BSFManager _bsfManager;
-    private TreeMap<String, Hook[]> _hooks = new TreeMap<String, Hook[]>();
-    private EventListenerList _listeners = new EventListenerList();
+    private final TreeMap<String, Hook[]> _hooks = new TreeMap<String, Hook[]>();
+    private final EventListenerList _listeners = new EventListenerList();
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of ScriptManager */
     public ScriptManager(Framework framework) {
@@ -197,7 +197,6 @@ public class ScriptManager {
     
     /**
      * tells listeners that a new Hook has been added
-     * @param hook the hook
      */
     protected void fireHooksChanged() {
         // Guaranteed to return a non-null array

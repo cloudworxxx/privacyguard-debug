@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +64,8 @@ public class LeakReportFragment extends Fragment {
     private UsageStatsManager usageStatsManager;
 
     //Maps a date to an int[] that contains the count of each type of leak.
-    private Map<Date, int[]> leakMap = new HashMap<>();
-    private List<Date> leakMapKeys = new ArrayList<>();
+    private final Map<Date, int[]> leakMap = new HashMap<>();
+    private final List<Date> leakMapKeys = new ArrayList<>();
     private int currentKeyIndex = -1;
     private XYPlot plot;
 
@@ -85,10 +85,10 @@ public class LeakReportFragment extends Fragment {
 
         usageStatsManager = (UsageStatsManager)getContext().getSystemService(Context.USAGE_STATS_SERVICE);
 
-        plot = (XYPlot)view.findViewById(R.id.plot);
+        plot = view.findViewById(R.id.plot);
 
-        navigateLeft = (ImageButton)view.findViewById(R.id.navigate_left);
-        navigateRight = (ImageButton)view.findViewById(R.id.navigate_right);
+        navigateLeft = view.findViewById(R.id.navigate_left);
+        navigateRight = view.findViewById(R.id.navigate_right);
 
         navigateLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,17 +132,17 @@ public class LeakReportFragment extends Fragment {
             }
         });
 
-        graphTitleText = (TextView)view.findViewById(R.id.graph_title_text);
+        graphTitleText = view.findViewById(R.id.graph_title_text);
 
         PackageManager pm = getContext().getPackageManager();
-        ImageView appIcon = (ImageView)view.findViewById(R.id.app_icon);
+        ImageView appIcon = view.findViewById(R.id.app_icon);
         try {
             appIcon.setImageDrawable(pm.getApplicationIcon(activity.getAppPackageName()));
         } catch (PackageManager.NameNotFoundException e) {
             appIcon.setImageResource(R.drawable.default_icon);
         }
 
-        TextView appNameText = (TextView)view.findViewById(R.id.app_name);
+        TextView appNameText = view.findViewById(R.id.app_name);
         appNameText.setText(activity.getAppName());
 
         //In the case where the app package is null, we are displaying all app leaks on the graph.
@@ -178,7 +178,7 @@ public class LeakReportFragment extends Fragment {
         Date centerDate = leakMapKeys.get(currentKeyIndex);
         long centerMillis = centerDate.getTime();
         int halfRange = PreferenceHelper.getLeakReportGraphDomainSize(getContext())/2;
-        long range = 1000 * halfRange;
+        long range = 1000L * halfRange;
 
         long domainLowerBound = centerMillis - range;
         long domainUpperBound = centerMillis + range;
@@ -368,7 +368,7 @@ public class LeakReportFragment extends Fragment {
     }
 
     private static class GraphDomainFormat extends Format {
-        private static DateFormat dateFormat = new SimpleDateFormat("h:mm:ss aa", Locale.CANADA);
+        private static final DateFormat dateFormat = new SimpleDateFormat("h:mm:ss aa", Locale.CANADA);
 
         @Override
         public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {

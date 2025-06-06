@@ -79,12 +79,12 @@ public class ConnectionHandler implements Runnable {
 
     private HTTPClient _httpClient = null;
 
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
-    private static boolean LOGD = false;
-    private static String TAG = ConnectionHandler.class.getSimpleName();
-    private static int _socket_timeout_large = 1000 * 60 * 30;
-    private static int _socket_timeout_normal = 1000 * 30;
+    private static final boolean LOGD = false;
+    private static final String TAG = ConnectionHandler.class.getSimpleName();
+    private static final int _socket_timeout_large = 1000 * 60 * 30;
+    private static final int _socket_timeout_normal = 1000 * 30;
     
     private InputStream _clientIn = null;
     private OutputStream _clientOut = null;
@@ -687,7 +687,7 @@ public class ConnectionHandler implements Runnable {
     };
      */
     
-    private static String[] wiresharkSupportedCiphers = new String[]
+    private static final String[] wiresharkSupportedCiphers = new String[]
     {
         "TLS_RSA_WITH_NULL_MD5",
         "TLS_RSA_WITH_NULL_SHA",
@@ -755,7 +755,7 @@ public class ConnectionHandler implements Runnable {
         // "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384", //49194
     };
     
-    private static List<String> listWiresharkSupportedCiphers = Arrays.asList(wiresharkSupportedCiphers);
+    private static final List<String> listWiresharkSupportedCiphers = Arrays.asList(wiresharkSupportedCiphers);
     private static String[] selectedCiphers = null;
     
     private String[] selectCiphers(String[] supportedCiphers){

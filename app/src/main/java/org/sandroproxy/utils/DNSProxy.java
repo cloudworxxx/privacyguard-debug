@@ -45,9 +45,9 @@ import android.util.Log;
  */
 public class DNSProxy implements Runnable {
     
-  private static Logger _logger = Logger.getLogger(DNSProxy.class.getName());
+  private static final Logger _logger = Logger.getLogger(DNSProxy.class.getName());
   
-  private static boolean LOGD = true;
+  private static final boolean LOGD = true;
   
   public static String getHostNameFromIp(String ip){
       String hostName = null;
@@ -85,7 +85,7 @@ public class DNSProxy implements Runnable {
   private DatagramSocket srvSocket;
 
   private int srvPort = 8153;
-  private String providerId;
+  private final String providerId;
   final protected int DNS_PKG_HEADER_LEN = 12;
   final private int[] DNS_HEADERS = {0, 0, 0x81, 0x80, 0, 0, 0, 0, 0, 0, 0,
       0};
@@ -106,11 +106,11 @@ public class DNSProxy implements Runnable {
 //  private static String dnsRelayGeaHostName = "gaednsproxy.appspot.com";
 //  private static String dnsRelayGaeIp = "173.194.70.141";
   
-  private static String dnsRelayPingEuHostName = "ping.eu";
-  private static String dnsRelayPingEuIp = "88.198.46.60";
+  private static final String dnsRelayPingEuHostName = "ping.eu";
+  private static final String dnsRelayPingEuIp = "88.198.46.60";
   
-  private static String dnsRelayWwwIpCnHostName = "www.ip.cn";
-  private static String dnsRelayWwwIpCnIp = "216.157.85.151";
+  private static final String dnsRelayWwwIpCnHostName = "www.ip.cn";
+  private static final String dnsRelayWwwIpCnIp = "216.157.85.151";
   
   private static String dnsRelayHostName;
   private static String dnsRelayIp;
@@ -122,12 +122,12 @@ public class DNSProxy implements Runnable {
 
   private static final String CANT_RESOLVE = "Error";
 
-  private SqlLiteStore database;
+  private final SqlLiteStore database;
 
   
   private static void getDnsServers() throws Exception{
       Class<?> SystemProperties = Class.forName("android.os.SystemProperties");
-      Method method = SystemProperties.getMethod("get", new Class[] { String.class });
+      Method method = SystemProperties.getMethod("get", String.class);
       ArrayList<String> servers = new ArrayList<String>();
       for (String name : new String[] { "net.dns1", "net.dns2", "net.dns3", "net.dns4" }) {
           String value = (String) method.invoke(null, name);
@@ -210,9 +210,7 @@ public class DNSProxy implements Runnable {
           dnsResponseCache.put(questDomainName, response);
           database.insertDnsResponse(response);
           String ip = response.getIPString();
-          if (dnsHostCache.containsKey(ip)){
-              dnsHostCache.remove(ip);
-          }
+          dnsHostCache.remove(ip);
           dnsHostCache.put(ip, questDomainName);
       }
     } catch (Exception e) {
@@ -222,10 +220,7 @@ public class DNSProxy implements Runnable {
   
   private boolean checkIfExpired(DNSResponseDto response){
       // 3 days
-      if ((System.currentTimeMillis() - response.getTimestamp()) > 259200000L) {
-          return true;
-      }
-      return false;
+      return (System.currentTimeMillis() - response.getTimestamp()) > 259200000L;
   }
 
   private synchronized DNSResponseDto queryFromCache(String questDomainName) {
@@ -361,9 +356,7 @@ public class DNSProxy implements Runnable {
       for (String  key : dnsResponseCache.keySet()) {
           DNSResponseDto response = dnsResponseCache.get(key);
           String ip = response.getIPString();
-          if (dnsHostCache.containsKey(ip)){
-              dnsHostCache.remove(ip);
-          }
+          dnsHostCache.remove(ip);
           dnsHostCache.put(ip, response.getRequest());
       }
     } catch (Exception e) {
@@ -616,7 +609,7 @@ public class DNSProxy implements Runnable {
           request.setMethod("POST");
           request.setHeader(new NamedValue("Host", dnsRelayHostName));
           request.setHeader(new NamedValue("Content-Type", "application/x-www-form-urlencoded"));
-          request.setContent(new String("host=www.google.com&go=Go").getBytes());
+          request.setContent("host=www.google.com&go=Go".getBytes());
           request.setURL(base);
       } else if (providerId.toLowerCase().equals(dnsRelayWwwIpCnHostName)){
           String url = "http://" + dnsRelayHostName + "/getip.php?action=queryip&ip_url=" + URLEncoder.encode(domain) + "&from=web";

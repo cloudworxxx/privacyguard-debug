@@ -304,7 +304,7 @@ public class TCPForwarder extends AbsForwarder { //implements ICommunication {
         long current = System.currentTimeMillis();
 
         if (closed) {
-            if (releaseTimeAfterClose < current) return true;
+            return releaseTimeAfterClose < current;
         }
         else if (releaseTimeIfIdle < current) {
             if (DEBUG) Logger.d(TAG, "Going to release TCP forwarder for port " + port + " due to idleness");

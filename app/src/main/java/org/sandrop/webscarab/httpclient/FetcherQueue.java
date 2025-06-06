@@ -46,12 +46,12 @@ import org.sandrop.webscarab.model.Response;
  */
 public class FetcherQueue {
     
-    private ConversationHandler _handler;
+    private final ConversationHandler _handler;
     
-    private Fetcher[] _fetchers;
-    private int _requestDelay;
+    private final Fetcher[] _fetchers;
+    private final int _requestDelay;
     private long _lastRequest = 0;
-    private List<Request> _requestQueue = new ArrayList<Request>();
+    private final List<Request> _requestQueue = new ArrayList<Request>();
     private boolean _running = true;
     private int _pending = 0;
     
@@ -121,7 +121,7 @@ public class FetcherQueue {
                     // check again
                 }
             }
-            nextRequest = (Request) _requestQueue.remove(0);
+            nextRequest = _requestQueue.remove(0);
         }
         if (_requestDelay > 0) {
             long currentTimeMillis = System.currentTimeMillis();

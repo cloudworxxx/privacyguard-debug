@@ -26,8 +26,8 @@ public class FileChooser {
     private static final String PARENT_DIR = "..";
 
     private final Activity activity;
-    private ListView list;
-    private Dialog dialog;
+    private final ListView list;
+    private final Dialog dialog;
     private File currentPath;
 
     // filter on file extension

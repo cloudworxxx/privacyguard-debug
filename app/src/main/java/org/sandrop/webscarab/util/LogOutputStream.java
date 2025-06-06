@@ -58,7 +58,7 @@ public class LogOutputStream extends FilterOutputStream {
         _ps.write(b);
     }
     
-    public void write(byte b[], int off, int len) throws IOException {
+    public void write(byte[] b, int off, int len) throws IOException {
         _os.write(b, off, len);
         _ps.write(b, off, len);
     }

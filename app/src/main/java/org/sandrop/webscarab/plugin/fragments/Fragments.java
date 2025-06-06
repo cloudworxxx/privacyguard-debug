@@ -40,6 +40,7 @@ package org.sandrop.webscarab.plugin.fragments;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,7 +68,7 @@ import org.sandrop.webscarab.plugin.Plugin;
  */
 public class Fragments implements Plugin {
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     private FragmentsModel _model = null;
     /**
@@ -108,7 +109,6 @@ public class Fragments implements Plugin {
     
     /**
      * Creates a new instance of Fragments
-     * @param props contains the user's configuration properties
      */
     public Fragments(Framework framework) {
         _model = new FragmentsModel(framework.getModel());
@@ -197,43 +197,38 @@ public class Fragments implements Plugin {
             }
         }
         //Now, look for "dangerous" javascript
-        try {
-            String content = new String(response.getContent(),"UTF-8");
-            for (int i = 0; i < jsDomXssPatterns.length; i++) {
-                Matcher m = jsDomXssPatterns[i].matcher(content);
-                while(m.find())
-                {
-                    String fragment = m.group();
-                    boolean falsePositive = false;
-                    //Test false positives
-                    for (int j = 0; j < jsDomXssFalsePositivesPattern.length; j++) {
-                        Matcher fp = jsDomXssFalsePositivesPattern[j]
-                                .matcher(fragment);
-                        if (fp.find()) {
-                            falsePositive = true;
-                            _logger
-                                    .info("Ignoring XSS-DOM fragment '"
-                                            + fragment
-                                            + "' - false positive according to pattern :"
-                                            + jsDomXssFalsePositivesPattern[j]
-                                                    .pattern());
-                            break;
-                        }
+        String content = new String(response.getContent(), StandardCharsets.UTF_8);
+        for (int i = 0; i < jsDomXssPatterns.length; i++) {
+            Matcher m = jsDomXssPatterns[i].matcher(content);
+            while(m.find())
+            {
+                String fragment = m.group();
+                boolean falsePositive = false;
+                //Test false positives
+                for (int j = 0; j < jsDomXssFalsePositivesPattern.length; j++) {
+                    Matcher fp = jsDomXssFalsePositivesPattern[j]
+                            .matcher(fragment);
+                    if (fp.find()) {
+                        falsePositive = true;
+                        _logger
+                                .info("Ignoring XSS-DOM fragment '"
+                                        + fragment
+                                        + "' - false positive according to pattern :"
+                                        + jsDomXssFalsePositivesPattern[j]
+                                                .pattern());
+                        break;
                     }
-                    if (!falsePositive)
-                    {
-                        _model.addFragment(url, id, FragmentsModel.KEY_DOMXSS,
-                                fragment);
-                    }
-                    
                 }
+                if (!falsePositive)
+                {
+                    _model.addFragment(url, id, FragmentsModel.KEY_DOMXSS,
+                            fragment);
+                }
+
             }
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
-        
-        
+
+
     }
     public void flush() throws StoreException {
         _model.flush();

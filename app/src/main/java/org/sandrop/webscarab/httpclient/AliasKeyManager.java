@@ -49,14 +49,13 @@ import javax.net.ssl.X509KeyManager;
  */
 public class AliasKeyManager implements X509KeyManager {
     
-    private KeyStore _ks;
-    private String _alias;
-    private String _keyPassword;
+    private final KeyStore _ks;
+    private final String _alias;
+    private final String _keyPassword;
     
     /**
      * Creates a new instance of AliasKeyManager
      * @param ks The KeyStore that contains the keypair to use
-     * @param password the password for the key (not the keystore)
      * @param alias the alias of the certificate to use
      */
     public AliasKeyManager(KeyStore ks, String alias, String keyPassword) {

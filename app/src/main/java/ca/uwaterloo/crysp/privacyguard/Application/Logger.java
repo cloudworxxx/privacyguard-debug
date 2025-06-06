@@ -23,9 +23,9 @@ import java.util.Map;
 public class Logger {
     private static final String TIME_STAMP_FORMAT = "MM-dd HH:mm:ss.SSS";
     private static final SimpleDateFormat df = new SimpleDateFormat(TIME_STAMP_FORMAT, Locale.CANADA);//TODO: auto detect locale
-    private static File logFile = new File(getDiskCacheDir(), "Log");
-    private static File trafficFile = new File(getDiskCacheDir(), "NetworkTraffic");
-    private static File locationFile = new File(getDiskCacheDir(), "LastLocations");
+    private static final File logFile = new File(getDiskCacheDir(), "Log");
+    private static final File trafficFile = new File(getDiskCacheDir(), "NetworkTraffic");
+    private static final File locationFile = new File(getDiskCacheDir(), "LastLocations");
 
     /**
      * Returns a dir  for cache storage

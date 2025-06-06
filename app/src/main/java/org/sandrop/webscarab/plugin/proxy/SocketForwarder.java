@@ -42,13 +42,13 @@ import android.util.Log;
 
 public class SocketForwarder extends Thread {
     
-    private static String TAG = SocketForwarder.class.getSimpleName();
-    private static boolean LOGD = false;
+    private static final String TAG = SocketForwarder.class.getSimpleName();
+    private static final boolean LOGD = false;
     
-    private InputStream in;
-    private OutputStream out;
-    private PcapWriter pcapWriter;
-    private boolean flip;
+    private final InputStream in;
+    private final OutputStream out;
+    private final PcapWriter pcapWriter;
+    private final boolean flip;
     
 
     public static void connect(String name, Socket clientSocket, Socket serverSocket, boolean captureAsPcap, File storageDir, ConnectionDescriptor connDesc) throws Exception {

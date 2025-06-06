@@ -55,7 +55,7 @@ import org.xml.sax.ext.LexicalHandler;
 public class DOMHandler implements ContentHandler, LexicalHandler {
     
     private Document _document = null;
-    private Stack<Node> _stack = new Stack<Node>();
+    private final Stack<Node> _stack = new Stack<Node>();
     private Node _last = null;
     private List<String> _namespaces = null;
     
@@ -74,7 +74,7 @@ public class DOMHandler implements ContentHandler, LexicalHandler {
     }
     
     public void characters(char[] ch, int start, int length) {
-        Node last = (Node)_stack.peek();
+        Node last = _stack.peek();
         
         if (last != _document) {
             final String text = new String(ch, start, length);
@@ -100,13 +100,13 @@ public class DOMHandler implements ContentHandler, LexicalHandler {
         // Add namespace declarations first
         if (_namespaces != null) {
             for (int i = 0; i < _namespaces.size(); i++) {
-                String prefix = (String) _namespaces.get(i++);
+                String prefix = _namespaces.get(i++);
                 
                 if (prefix == null || prefix.equals("")) {
-                    element.setAttributeNS(XMLNS_URI, XMLNS_PREFIX, (String) _namespaces.get(i));
+                    element.setAttributeNS(XMLNS_URI, XMLNS_PREFIX, _namespaces.get(i));
                 }
                 else {
-                    element.setAttributeNS(XMLNS_URI, XMLNS_STRING + prefix, (String) _namespaces.get(i));
+                    element.setAttributeNS(XMLNS_URI, XMLNS_STRING + prefix, _namespaces.get(i));
                 }
             }
             _namespaces.clear();
@@ -125,7 +125,7 @@ public class DOMHandler implements ContentHandler, LexicalHandler {
         }
         
         // Append this new node onto current stack node
-        Node last = (Node)_stack.peek();
+        Node last = _stack.peek();
         last.appendChild(element);
         
         // Push this node onto stack
@@ -158,7 +158,7 @@ public class DOMHandler implements ContentHandler, LexicalHandler {
      * adds processing instruction node to DOM.
      */
     public void processingInstruction(String target, String data) {
-        Node last = (Node)_stack.peek();
+        Node last = _stack.peek();
         ProcessingInstruction pi = _document.createProcessingInstruction(target, data);
         if (pi != null){
             last.appendChild(pi);
@@ -179,7 +179,7 @@ public class DOMHandler implements ContentHandler, LexicalHandler {
      * Lexical Handler method to create comment node in DOM tree.
      */
     public void comment(char[] ch, int start, int length) {
-        Node last = (Node)_stack.peek();
+        Node last = _stack.peek();
         Comment comment = _document.createComment(new String(ch,start,length));
         if (comment != null){
             last.appendChild(comment);

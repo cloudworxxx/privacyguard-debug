@@ -28,8 +28,8 @@ import android.util.Log;
 
 public class NetworkInfo {
     
-    private static boolean LOGD = false;
-    private static String TAG = NetworkInfo.class.getSimpleName();
+    private static final boolean LOGD = false;
+    private static final String TAG = NetworkInfo.class.getSimpleName();
     
     public static String TCP_TYPE ="tcp";
     public static String TCP6_TYPE ="tcp6";

@@ -15,8 +15,8 @@ import java.util.List;
 
 public class SSLSocketBuilder {
     private static final String TAG = SSLSocketBuilder.class.getSimpleName();
-    private static boolean DEBUG = false;
-    private static String[] wiresharkSupportedCiphers = new String[]
+    private static final boolean DEBUG = false;
+    private static final String[] wiresharkSupportedCiphers = new String[]
             {
                     "TLS_RSA_WITH_NULL_MD5",
                     "TLS_RSA_WITH_NULL_SHA",
@@ -36,7 +36,7 @@ public class SSLSocketBuilder {
                     "TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA", //98
             };
 
-    private static List<String> listWiresharkSupportedCiphers = Arrays.asList(wiresharkSupportedCiphers);
+    private static final List<String> listWiresharkSupportedCiphers = Arrays.asList(wiresharkSupportedCiphers);
     private static String[] selectedCiphers = null;
 
     public static String[] selectCiphers(String[] supportedCiphers){

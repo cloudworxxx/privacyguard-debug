@@ -85,11 +85,11 @@ public class Spider implements Plugin, ConversationHandler {
     private Framework _framework = null;
     
     private FetcherQueue _fetcherQueue = null;
-    private int _threads = 4;
+    private final int _threads = 4;
     
     private Thread _runThread = null;
     
-    private Logger _logger = Logger.getLogger(getClass().getName());
+    private final Logger _logger = Logger.getLogger(getClass().getName());
     
     /** Creates a new instance of Spider */
     public Spider(Framework framework) {
@@ -103,7 +103,7 @@ public class Spider implements Plugin, ConversationHandler {
     }
     
     public String getPluginName() {
-        return new String("Spider");
+        return "Spider";
     }
     
     public void run() {
@@ -196,10 +196,7 @@ public class Spider implements Plugin, ConversationHandler {
         // Yes, this is effectively the classifier from websphinx, we can use that if it fits nicely
         
         // OK if the URL matches the domain
-        if (isAllowedDomain(url) && !_model.isForbidden(url)) {
-            return true;
-        }
-        return false;
+        return isAllowedDomain(url) && !_model.isForbidden(url);
     }
     
     private boolean isAllowedDomain(HttpUrl url) {
@@ -216,7 +213,7 @@ public class Spider implements Plugin, ConversationHandler {
         // build up a list of links
         queueLinksUnder(url, links, 50);
         // queue them
-        while (links.size()>0) _model.queueLink((Link) links.remove(0));
+        while (links.size()>0) _model.queueLink(links.remove(0));
     }
     
     private void queueLinksUnder(HttpUrl url, List<Link> links, int max) {

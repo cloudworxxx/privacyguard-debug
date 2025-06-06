@@ -24,13 +24,13 @@ import ca.uwaterloo.crysp.privacyguard.Application.Logger;
  */
 
 public class MyClientResolver implements IClientResolver {
-  private static boolean DEBUG = false;
-  private static String TAG = MyClientResolver.class.getSimpleName();
-  private HashMap<Integer, String> portToRemoteAddress = new HashMap<Integer, String>();
-  private HashMap<Integer, Integer> portToRemotePort = new HashMap<Integer, Integer>();
-  private HashMap<Integer, Integer> forwardPortToAppPort = new HashMap<Integer, Integer>();
+  private static final boolean DEBUG = false;
+  private static final String TAG = MyClientResolver.class.getSimpleName();
+  private final HashMap<Integer, String> portToRemoteAddress = new HashMap<Integer, String>();
+  private final HashMap<Integer, Integer> portToRemotePort = new HashMap<Integer, Integer>();
+  private final HashMap<Integer, Integer> forwardPortToAppPort = new HashMap<Integer, Integer>();
 
-  private PackageManager packageManager;
+  private final PackageManager packageManager;
 
   public MyClientResolver(Context context){
     packageManager = context.getPackageManager();

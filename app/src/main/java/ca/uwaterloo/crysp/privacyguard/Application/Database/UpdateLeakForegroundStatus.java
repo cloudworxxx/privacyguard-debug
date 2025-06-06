@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 @TargetApi(22)
 public class UpdateLeakForegroundStatus extends AsyncTask<Long, Void, Void> {
-    private Context context;
+    private final Context context;
 
     public UpdateLeakForegroundStatus(Context context) {
         super();

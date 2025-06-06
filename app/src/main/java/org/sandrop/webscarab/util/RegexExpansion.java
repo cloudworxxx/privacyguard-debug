@@ -57,10 +57,10 @@ import java.util.regex.PatternSyntaxException;
  */
 public class RegexExpansion {
     
-    private String regex;
+    private final String regex;
     private int size = 0;
     private int index = 0;
-    private char[][] charsets;
+    private final char[][] charsets;
     
     /** Creates a new instance of RegexExpansion */
     public RegexExpansion(String regex) throws PatternSyntaxException {
@@ -115,7 +115,7 @@ public class RegexExpansion {
                         continue;
                     case '-' : 
                         if (inClass) {
-                            range = ((Character)chars.get(chars.size()-1)).charValue();
+                            range = chars.get(chars.size()-1).charValue();
                             continue;
                         }
                     default :
@@ -134,10 +134,10 @@ public class RegexExpansion {
         }
         this.charsets = new char[charsets.size()][];
         for (int i=0; i<charsets.size(); i++) {
-            chars = (List<Character>) charsets.get(i);
+            chars = charsets.get(i);
             char[] t = new char[chars.size()];
             for (int j=0; j<chars.size();j++) {
-                t[j] = ((Character) chars.get(j)).charValue();
+                t[j] = chars.get(j).charValue();
             }
             this.charsets[i] = t;
         }

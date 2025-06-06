@@ -42,8 +42,8 @@ public class ConversationEvent extends EventObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 5382638131336063659L;
-	private ConversationID _id;
-    private int _position;
+	private final ConversationID _id;
+    private final int _position;
     
     /** Creates a new instance of ConversationEvent */
     public ConversationEvent(Object source, ConversationID id, int position) {

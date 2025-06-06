@@ -1,7 +1,11 @@
 package ca.uwaterloo.crysp.privacyguard.Plugin;
 
+import android.Manifest;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
+
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 import ca.uwaterloo.crysp.privacyguard.Utilities.HashHelpers;
@@ -19,7 +23,7 @@ import java.util.HashMap;
  * Created by frank on 23/07/14.
  */
 public class DeviceDetection implements IPlugin {
-    private static HashMap<String, String> nameofValue = new HashMap<String, String>();
+    private static final HashMap<String, String> nameofValue = new HashMap<String, String>();
     private static boolean init = false;
     private final boolean DEBUG = false;
     private final String TAG = DeviceDetection.class.getSimpleName();
@@ -67,6 +71,7 @@ public class DeviceDetection implements IPlugin {
         if (DEBUG) Logger.d(TAG, "Looking for its MD5 : " + HashHelpers.MD5(content, 8));
     }
 
+    @RequiresPermission("android.permission.READ_PRIVILEGED_PHONE_STATE")
     @Override
     public void setContext(Context context) {
         synchronized (nameofValue) {
@@ -88,7 +93,7 @@ public class DeviceDetection implements IPlugin {
             if (SIMCardSerial != null && SIMCardSerial.length() > 0) {
                 addIdentifiers("SIM Card Serial Number", SIMCardSerial);
             }
-            String androidId = android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+            String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
             if (androidId != null && androidId.length() > 0) {
                 addIdentifiers("Android ID", androidId);
             }

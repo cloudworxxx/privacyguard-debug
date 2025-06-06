@@ -1,19 +1,19 @@
 package org.sandrop.webscarab.model;
 
 public class ConnectionDescriptor {
-    private String[] namespaces;
-    private String[] names;
-    private String[] versions;
-    private String laddress;
-    private int lport;
-    private String lportprotocol;
-    private String raddress;
-    private String rhostname;
-    private int rport;
-    private String rportprotocol;
-    private int id;
-    private int state;
-    private String type;
+    private final String[] namespaces;
+    private final String[] names;
+    private final String[] versions;
+    private final String laddress;
+    private final int lport;
+    private final String lportprotocol;
+    private final String raddress;
+    private final String rhostname;
+    private final int rport;
+    private final String rportprotocol;
+    private final int id;
+    private final int state;
+    private final String type;
     
     public ConnectionDescriptor(String[] namespaces, String[] names, String[] versions, String type, int state, String laddress, int lport, String raddress, int rport, String rhostname,  int id) {
         this.namespaces = namespaces;

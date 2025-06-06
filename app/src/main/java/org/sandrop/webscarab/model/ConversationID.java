@@ -33,10 +33,10 @@ package org.sandrop.webscarab.model;
 
 public class ConversationID implements Comparable {
     
-    private static Object _lock = new Object();
+    private static final Object _lock = new Object();
     private static int _next = 1;
     
-    private int _id;
+    private final int _id;
     
     /**
      * Creates a new instance of ConversationID. Each ConversationID created using this

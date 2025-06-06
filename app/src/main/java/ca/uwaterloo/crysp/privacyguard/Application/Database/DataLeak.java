@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class DataLeak {
 
-    private String packageName;
-    private String appName;
-    private String category;
-    private String type;
-    private String leakContent;
-    private String timestamp;
-    private Date timestampDate;
-    private int foregroundStatus;
-    private String destination;
+    private final String packageName;
+    private final String appName;
+    private final String category;
+    private final String type;
+    private final String leakContent;
+    private final String timestamp;
+    private final Date timestampDate;
+    private final int foregroundStatus;
+    private final String destination;
 
     public DataLeak(String packageName, String appName, String category, String type, String content, String timestamp, int foregroundStatus, String destination){
         this.packageName = packageName;

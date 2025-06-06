@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,13 +69,13 @@ import android.util.Log;
 public class Message {
     
     private ArrayList<NamedValue> _headers = null;
-    private NamedValue[] NO_HEADERS = new NamedValue[0];
+    private final NamedValue[] NO_HEADERS = new NamedValue[0];
     
     private static final byte[] NO_CONTENT = new byte[0];
     private static final byte[] CONTENT_TOO_BIG = "Content to big to parse".getBytes();
     
-    private static boolean LOGD = false;
-    private static String TAG = Message.class.getName();
+    private static final boolean LOGD = false;
+    private static final String TAG = Message.class.getName();
     
     private InputStream _contentStream = null;
     private MessageOutputStream _content = null;
@@ -270,7 +271,7 @@ public class Message {
         if (_headers != null) {
             for (int i=0; i<_headers.size(); i++) {
                 NamedValue nv = _headers.get(i);
-                os.write(new String(nv.getName() + ": " + nv.getValue() + crlf).getBytes());
+                os.write((nv.getName() + ": " + nv.getValue() + crlf).getBytes());
                 _logger.finest("Header: " + nv);
             }
         }
@@ -288,7 +289,7 @@ public class Message {
         if (_headers != null) {
             for (int i=0; i<_headers.size(); i++) {
                 NamedValue nv = _headers.get(i);
-                os.write(new String(nv.getName() + ": " + nv.getValue() + crlf).getBytes());
+                os.write((nv.getName() + ": " + nv.getValue() + crlf).getBytes());
                 _logger.finest("Header: " + nv);
             }
         }
@@ -389,35 +390,21 @@ public class Message {
         }
         byte[] content = getContent();
         if (_chunked && content != null) {
-            buff.append("Content-length: " + Integer.toString(content.length) + crlf);
+            buff.append("Content-length: " + content.length + crlf);
         }
         buff.append(crlf);
         if (content != null) {
-            try {
-                buff.append(new String(content, "UTF-8"));
-            } catch (UnsupportedEncodingException uee) {}; // must support UTF-8
+            buff.append(new String(content, StandardCharsets.UTF_8));
         }
         return buff.toString();
     }
     
     private void updateFlagsForHeader(NamedValue header) {
         if (header.getName().equalsIgnoreCase("Transfer-Encoding")) {
-            if (header.getValue().indexOf("chunked")>-1) {
-                _chunked = true;
-            } else {
-                _chunked = false;
-            }
+            _chunked = header.getValue().indexOf("chunked") > -1;
         } else if (header.getName().equalsIgnoreCase("Content-Encoding")) {
-            if (header.getValue().indexOf("gzip")>-1) {
-                _gzipped = true;
-            } else {
-                _gzipped = false;
-            }
-            if (header.getValue().indexOf("deflate")>-1) {
-                _deflate = true;
-            } else {
-                _deflate = false;
-            }
+            _gzipped = header.getValue().indexOf("gzip") > -1;
+            _deflate = header.getValue().indexOf("deflate") > -1;
         } else if (header.getName().equalsIgnoreCase("Content-length")) {
             try {
                 _length = Integer.parseInt(header.getValue().trim());
@@ -558,8 +545,6 @@ public class Message {
     
     /**
      * sets the headers
-     * @param table a two dimensional array of Strings, where table[i][0] is the header name and
-     * table[i][1] is the header value
      */
     public void setHeaders(NamedValue[] headers) {
         if (_headers == null) {

@@ -163,7 +163,7 @@ public class Response extends Message {
      */    
     public void writeHeaders(OutputStream os, String crlf) throws IOException {
         os = new BufferedOutputStream(os);
-        os.write(new String(version + " " + getStatusLine() + crlf).getBytes());
+        os.write((version + " " + getStatusLine() + crlf).getBytes());
         super.writeHeaders(os,crlf);
         os.flush();
     }
@@ -186,7 +186,7 @@ public class Response extends Message {
      */    
     public void write(OutputStream os, String crlf) throws IOException {
         os = new BufferedOutputStream(os);
-        os.write(new String(version + " " + getStatusLine() + crlf).getBytes());
+        os.write((version + " " + getStatusLine() + crlf).getBytes());
         super.write(os,crlf);
         os.flush();
     }
@@ -262,10 +262,9 @@ public class Response extends Message {
      * @return
      */    
     public String toString(String crlf) {
-        StringBuffer buff = new StringBuffer();
-        buff.append(version + " " + getStatusLine() + crlf);
-        buff.append(super.toString(crlf));
-        return buff.toString();
+        String buff = version + " " + getStatusLine() + crlf +
+                super.toString(crlf);
+        return buff;
     }
     
     /**

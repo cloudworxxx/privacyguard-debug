@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.io.FilterInputStream;
 
 public class FixedLengthInputStream extends FilterInputStream {
-    private int max;
+    private final int max;
     private int read = 0;
     private boolean closed = false;
     

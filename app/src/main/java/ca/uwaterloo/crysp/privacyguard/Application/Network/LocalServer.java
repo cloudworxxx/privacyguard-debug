@@ -30,8 +30,8 @@ public class LocalServer extends Thread {
     private static final String TAG = LocalServer.class.getSimpleName();
     public static int port = 12345;
     private ServerSocket serverSocket;
-    private MyVpnService vpnService;
-    private TLSWhiteList tlsWhiteList= new TLSWhiteList(getDiskFileDir(), "TLSInterceptFailures");
+    private final MyVpnService vpnService;
+    private final TLSWhiteList tlsWhiteList= new TLSWhiteList(getDiskFileDir(), "TLSInterceptFailures");
 
     public LocalServer(MyVpnService vpnService) {
             try {

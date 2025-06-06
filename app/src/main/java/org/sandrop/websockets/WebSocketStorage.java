@@ -48,6 +48,8 @@
  */
 package org.sandrop.websockets;
 
+import android.annotation.SuppressLint;
+
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -66,7 +68,7 @@ public class WebSocketStorage implements WebSocketObserver {
 	// determines when messages are stored in databases
 	public static final int WEBSOCKET_OBSERVING_ORDER = 100;
 
-	private SqlLiteStore store;
+	private final SqlLiteStore store;
 
 	public WebSocketStorage(SqlLiteStore store) {
 		this.store = store;
@@ -88,7 +90,8 @@ public class WebSocketStorage implements WebSocketObserver {
 		return WEBSOCKET_OBSERVING_ORDER;
 	}
 
-	@Override
+	@SuppressLint("SuspiciousIndentation")
+    @Override
 	public boolean onMessageFrame(long channelId, WebSocketMessage wsMessage) {
 		if (wsMessage.isFinished()) {
 			WebSocketMessageDTO message = wsMessage.getDTO();
@@ -112,7 +115,7 @@ public class WebSocketStorage implements WebSocketObserver {
 				if (store != null) {
 				    store.insertOrUpdateChannel(proxy.getDTO());
 				} else if (!state.equals(State.CLOSED)) {
-					logger.info("Could not update state of WebSocket channel to '" + state.toString() + "'!");
+					logger.info("Could not update state of WebSocket channel to '" + state + "'!");
 				}
 			} catch (SQLException e) {
 				logger.info(e.getMessage());

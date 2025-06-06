@@ -57,8 +57,8 @@ public class ManualRequest implements Plugin {
     private Response _response = null;
     private Date _responseDate = null;
     
-    private Framework _framework;
-    private ManualRequestModel _model;
+    private final Framework _framework;
+    private final ManualRequestModel _model;
     
     public ManualRequest(Framework framework) {
         _framework = framework;
@@ -70,7 +70,7 @@ public class ManualRequest implements Plugin {
      *
      */
     public String getPluginName() {
-        return new String("Manual Request");
+        return "Manual Request";
     }
     
     public ManualRequestModel getModel() {

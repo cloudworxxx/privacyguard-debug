@@ -31,12 +31,12 @@ public class TCPForwarderWorker extends Thread {
     private final int limit = 1368;
     //private SocketChannel socketChannel;
     //private Selector selector;
-    private Socket socket;
-    private TCPForwarder forwarder;
-    private ByteBuffer msg = ByteBuffer.allocate(limit);
-    private LinkedBlockingQueue<byte[]> requests = new LinkedBlockingQueue<>();
+    private final Socket socket;
+    private final TCPForwarder forwarder;
+    private final ByteBuffer msg = ByteBuffer.allocate(limit);
+    private final LinkedBlockingQueue<byte[]> requests = new LinkedBlockingQueue<>();
     private Sender sender;
-    private int src_port;
+    private final int src_port;
 
     public TCPForwarderWorker(Socket socket, TCPForwarder forwarder, int src_port) {
         this.forwarder = forwarder;
@@ -155,7 +155,6 @@ public class TCPForwarderWorker extends Thread {
             } catch (InterruptedException e) {
                 // happens when connection gets terminated by TCPForwarder
                 //e.printStackTrace();
-                return;
             } catch (IOException e) {
                 e.printStackTrace();
             }

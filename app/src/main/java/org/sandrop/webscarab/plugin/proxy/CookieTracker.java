@@ -67,7 +67,7 @@ public class CookieTracker extends ProxyPlugin {
     }
     
     public String getPluginName() {
-        return new String("Cookie Tracker");
+        return "Cookie Tracker";
     }
     
     public void setInjectRequests(boolean bool) {
@@ -96,7 +96,7 @@ public class CookieTracker extends ProxyPlugin {
     
     private class Plugin implements HTTPClient {
     
-        private HTTPClient _in;
+        private final HTTPClient _in;
         
         public Plugin(HTTPClient in) {
             _in = in;

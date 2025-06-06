@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +43,10 @@ import java.util.Locale;
 
 public class LeakQueryFragment extends Fragment {
 
-    private static String TAG = "Test";
+    private static final String TAG = "Test";
 
 
-    private Calendar calendar = Calendar.getInstance(Locale.CANADA);
+    private final Calendar calendar = Calendar.getInstance(Locale.CANADA);
 
     private Date startDate;
     private Date endDate;
@@ -87,42 +87,42 @@ public class LeakQueryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.leak_query_fragment, null);
 
-        ListView leaksList = (ListView)view.findViewById(R.id.list_view);
+        ListView leaksList = view.findViewById(R.id.list_view);
         leaksList.addHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.query_list_header, null, false));
         listAdapter = new ListAdapter(getContext(), new ArrayList<DataLeak>());
         leaksList.setAdapter(listAdapter);
         leaksList.addFooterView(LayoutInflater.from(getContext()).inflate(R.layout.query_list_footer, null, false));
 
-        totalNumber = (TextView)view.findViewById(R.id.total_number);
+        totalNumber = view.findViewById(R.id.total_number);
         progressBar = view.findViewById(R.id.progress_bar);
 
         PackageManager pm = getContext().getPackageManager();
-        ImageView appIcon = (ImageView)view.findViewById(R.id.app_icon);
+        ImageView appIcon = view.findViewById(R.id.app_icon);
         try {
             appIcon.setImageDrawable(pm.getApplicationIcon(activity.getAppPackageName()));
         } catch (PackageManager.NameNotFoundException e) {
             appIcon.setImageResource(R.drawable.default_icon);
         }
 
-        TextView appNameText = (TextView)view.findViewById(R.id.app_name);
+        TextView appNameText = view.findViewById(R.id.app_name);
         appNameText.setText(activity.getAppName());
 
-        final Spinner spinnerCategory = (Spinner) view.findViewById(R.id.spinner_category);
+        final Spinner spinnerCategory = view.findViewById(R.id.spinner_category);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(),
                 R.array.spinner_category_values, R.layout.simple_spinner_item);
         adapterCategory.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategory);
 
-        final Spinner spinnerStatus = (Spinner) view.findViewById(R.id.spinner_status);
+        final Spinner spinnerStatus = view.findViewById(R.id.spinner_status);
         ArrayAdapter<CharSequence> adapterStatus = ArrayAdapter.createFromResource(getContext(),
                 R.array.spinner_status_values, R.layout.simple_spinner_item);
         adapterStatus.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(adapterStatus);
 
-        final TextView startEditText = (TextView)view.findViewById(R.id.start_date);
-        final TextView endEditText = (TextView)view.findViewById(R.id.end_date);
-        ImageView startDateCalendar = (ImageView)view.findViewById(R.id.start_date_calendar);
-        ImageView endDateCalendar = (ImageView)view.findViewById(R.id.end_date_calendar);
+        final TextView startEditText = view.findViewById(R.id.start_date);
+        final TextView endEditText = view.findViewById(R.id.end_date);
+        ImageView startDateCalendar = view.findViewById(R.id.start_date_calendar);
+        ImageView endDateCalendar = view.findViewById(R.id.end_date_calendar);
 
         startEditText.setText(dateFormatDisplay.format(startDate));
         endEditText.setText(dateFormatDisplay.format(endDate));
@@ -161,7 +161,7 @@ public class LeakQueryFragment extends Fragment {
             }
         });
 
-        query = (ImageButton)view.findViewById(R.id.query);
+        query = view.findViewById(R.id.query);
         query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +178,7 @@ public class LeakQueryFragment extends Fragment {
             }
         });
 
-        share = (Button)view.findViewById(R.id.Share);
+        share = view.findViewById(R.id.Share);
         share.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -242,13 +242,13 @@ public class LeakQueryFragment extends Fragment {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.data_leak, parent, false);
             }
 
-            TextView appNameText = (TextView)convertView.findViewById(R.id.app_name);
-            TextView categoryText = (TextView)convertView.findViewById(R.id.category);
-            TextView typeText = (TextView)convertView.findViewById(R.id.type);
-            TextView destinationText = (TextView)convertView.findViewById(R.id.destination);
-            TextView timeStampText = (TextView)convertView.findViewById(R.id.time_stamp);
-            TextView contentText = (TextView)convertView.findViewById(R.id.content);
-            TextView statusText = (TextView)convertView.findViewById(R.id.status);
+            TextView appNameText = convertView.findViewById(R.id.app_name);
+            TextView categoryText = convertView.findViewById(R.id.category);
+            TextView typeText = convertView.findViewById(R.id.type);
+            TextView destinationText = convertView.findViewById(R.id.destination);
+            TextView timeStampText = convertView.findViewById(R.id.time_stamp);
+            TextView contentText = convertView.findViewById(R.id.content);
+            TextView statusText = convertView.findViewById(R.id.status);
 
             String categoryCamelCase = dataLeak.getCategory().toLowerCase();
             categoryCamelCase = categoryCamelCase.substring(0, 1).toUpperCase() + categoryCamelCase.substring(1);
